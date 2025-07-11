@@ -1,0 +1,19 @@
+replicaCount: 1
+
+webapp:
+  name: CIRRUSTest
+  group: CIRRUSTest
+  path: /
+  tls:
+    fqdn: CIRRUSTest.k8s.ucar.edu
+    secretName: incommon-cert-CIRRUSTest
+  volume1:
+    name: pearseScratch
+    server: glade
+    path: /glade/derecho/scratch/pearse
+    readOnly: true
+  container: 
+    image: docker.io/docker-io-sgpearse/CIRRUSTest:v1
+    port: 8080
+    memory: 1G
+    cpu: 2
