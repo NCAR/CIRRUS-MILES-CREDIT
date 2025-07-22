@@ -10,7 +10,7 @@ webapp:
   volume1:
     name: pearseScratch
     server: glade
-    path: /glade/derecho/scratch/pearse
+    path: /glade
     readOnly: true
   container: 
     image: docker.io/docker-io-sgpearse/CIRRUSTest:v1
