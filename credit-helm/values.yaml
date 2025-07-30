@@ -14,7 +14,7 @@ webapp:
     path: /glade
     readOnly: true
   container: 
-    image: docker.io/docker-io-sgpearse/CIRRUSTest:v1
+    image: docker.io/sgpearse/cirrustest:v1
     port: 8080
     requests: 
       memory: 1Gi
