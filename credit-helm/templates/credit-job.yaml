@@ -19,6 +19,12 @@ spec:
           labels:
             app: {{ .Values.webapp.name }}
         spec:
+          volumes:
+            - name: {{ .Values.webapp.volume1.name }}
+              nfs:
+                server: {{ .Values.webapp.volume1.server }}
+                path: {{ .Values.webapp.volume1.path }}
+                readOnly: {{ .Values.webapp.volume1.readOnly }}
           restartPolicy: OnFailure 
           runtimeClassName: nvidia
           securityContext:
@@ -36,3 +42,6 @@ spec:
                 memory: {{ .Values.webapp.container.requests.memory }}
                 cpu: {{ .Values.webapp.container.requests.cpu }}
                 nvidia.com/gpu: "1"
+            volumeMounts:
+            - mountPath: /glade/campaign
+              name: {{ .Values.webapp.volume1.name }}

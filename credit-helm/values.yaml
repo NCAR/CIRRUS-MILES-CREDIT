@@ -9,9 +9,9 @@ webapp:
     fqdn: cirrustest.k8s.ucar.edu
     secretName: incommon-cert-cirrustest
   volume1:
-    name: pearseScratch
-    server: glade
-    path: /glade
+    name: campaign
+    server: gladedm1.ucar.edu
+    path: /gpfs/csfs1
     readOnly: true
   container: 
     image: docker.io/sgpearse/cirrustest:1.0
