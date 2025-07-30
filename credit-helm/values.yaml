@@ -1,13 +1,13 @@
 replicaCount: 1
 
 webapp:
-  name: CIRRUSTest
-  group: CIRRUSTest
+  name: cirrustest
+  group: cirrustest
   imagePullPolicy: Always
   path: /
   tls:
-    fqdn: CIRRUSTest.k8s.ucar.edu
-    secretName: incommon-cert-CIRRUSTest
+    fqdn: cirrustest.k8s.ucar.edu
+    secretName: incommon-cert-cirrustest
   volume1:
     name: pearseScratch
     server: glade
