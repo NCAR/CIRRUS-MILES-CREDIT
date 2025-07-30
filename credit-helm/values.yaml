@@ -3,6 +3,7 @@ replicaCount: 1
 webapp:
   name: CIRRUSTest
   group: CIRRUSTest
+  imagePullPolicy: Always
   path: /
   tls:
     fqdn: CIRRUSTest.k8s.ucar.edu
@@ -15,5 +16,9 @@ webapp:
   container: 
     image: docker.io/docker-io-sgpearse/CIRRUSTest:v1
     port: 8080
-    memory: 1G
-    cpu: 2
+    requests: 
+      memory: 1Gi
+      cpu: 2
+    limits: 
+      memory: 64Gi
+      cpu: 8
