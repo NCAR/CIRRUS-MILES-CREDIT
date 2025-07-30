@@ -1,0 +1,68 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.webapp.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.webapp.name }}
+    group: {{ .Values.webapp.group }}
+spec:
+  schedule: "0 0,6,12,18 * * *"  
+  timeZone: "America/Denver"  
+  concurrencyPolicy: Forbid  
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ .Values.webapp.name }}
+        spec:
+          restartPolicy: OnFailure 
+          runtimeClassName: nvidia
+          securityContext:
+            fsGroup: 1000
+          containers:
+          - name: {{ .Values.webapp.name }}
+            image: {{ .Values.webapp.container.image }}
+            imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+            resources:
+              limits:
+                memory: {{ .Values.webapp.container.limits.memory }}
+                cpu: {{ .Values.webapp.container.limits.cpu }}
+                nvidia.com/gpu: "1"
+              requests:
+                memory: {{ .Values.webapp.container.requests.memory }}
+                cpu: {{ .Values.webapp.container.requests.cpu }}
+                nvidia.com/gpu: "1"
+            #volumeMounts:
+            # vvv probably will not use this volume
+            #- name: config-volume
+            #  mountPath: /cloud/config.yaml
+            #  subPath: config.yaml
+
+            #  vvv will never need this volume vvv
+            #- name: logger-volume
+            #  mountPath: /cloud/services/webapp/logger.py
+            #  subPath: logger.py
+
+            # vvv potentially could use this volumevvv
+            #- name: static-volume
+            #  mountPath: /cloud/services/webapp/static_data
+            #- name: checkpoint-volume
+            #  mountPath: /cloud/services/webapp/webapp_run/results
+          #volumes:
+          #- name: config-volume
+          #  configMap:
+          #    name: {{ .Values.app.config.name }}
+          #- name: logger-volume
+          #  configMap:
+          #    name: {{ .Values.app.logger.name }}
+          # vvv probably will not need these volumes vvv
+          #- name: static-volume
+          #  persistentVolumeClaim:
+          #    claimName: {{ .Values.webapp.volume.static_data.name }}
+          #- name: checkpoint-volume
+          #  persistentVolumeClaim:
+          #    claimName: {{ .Values.webapp.volume.checkpoint.name }}
