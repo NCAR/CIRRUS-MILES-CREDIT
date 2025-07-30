@@ -36,33 +36,3 @@ spec:
                 memory: {{ .Values.webapp.container.requests.memory }}
                 cpu: {{ .Values.webapp.container.requests.cpu }}
                 nvidia.com/gpu: "1"
-            #volumeMounts:
-            # vvv probably will not use this volume
-            #- name: config-volume
-            #  mountPath: /cloud/config.yaml
-            #  subPath: config.yaml
-
-            #  vvv will never need this volume vvv
-            #- name: logger-volume
-            #  mountPath: /cloud/services/webapp/logger.py
-            #  subPath: logger.py
-
-            # vvv potentially could use this volumevvv
-            #- name: static-volume
-            #  mountPath: /cloud/services/webapp/static_data
-            #- name: checkpoint-volume
-            #  mountPath: /cloud/services/webapp/webapp_run/results
-          #volumes:
-          #- name: config-volume
-          #  configMap:
-          #    name: {{ .Values.app.config.name }}
-          #- name: logger-volume
-          #  configMap:
-          #    name: {{ .Values.app.logger.name }}
-          # vvv probably will not need these volumes vvv
-          #- name: static-volume
-          #  persistentVolumeClaim:
-          #    claimName: {{ .Values.webapp.volume.static_data.name }}
-          #- name: checkpoint-volume
-          #  persistentVolumeClaim:
-          #    claimName: {{ .Values.webapp.volume.checkpoint.name }}
