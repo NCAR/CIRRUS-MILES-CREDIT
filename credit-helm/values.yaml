@@ -17,7 +17,7 @@ webapp:
     image: docker.io/sgpearse/cirrustest:1.0
     port: 8080
     requests: 
-      memory: 1Gi
+      memory: 2Gi
       cpu: 2
     limits: 
       memory: 64Gi
