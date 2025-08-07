@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Pod
+metadata:
+  name: nginx-hello
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.webapp.name }}
+    group: {{ .Values.webapp.group }}
+spec:
+  containers:
+  - image: nginx
+    name: pod
+    command:
+    - echo
+    - Hello
