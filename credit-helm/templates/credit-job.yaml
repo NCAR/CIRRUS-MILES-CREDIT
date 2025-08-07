@@ -26,11 +26,9 @@ spec:
         - name: {{ .Values.webapp.name }}
           image: {{ .Values.webapp.container.image }}
           imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-          command: ["/bin/bash"]
-          args:
-            -  echo "Starting job...";
-            -  RESULT=$(date);
-            -  echo "The current date is: $RESULT";
+          command:
+            - echo
+            - "foo"
           tty: true
           resources:
             limits:
