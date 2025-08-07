@@ -8,7 +8,7 @@ metadata:
     group: {{ .Values.webapp.group }}
 spec:
   containers:
-  - image: nginx
+  - image: docker.io/ncging/argo-flask-demo:2025-06-24.16.33
     name: pod
     command:
     - echo
