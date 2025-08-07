@@ -26,8 +26,8 @@ spec:
         - name: {{ .Values.webapp.name }}
           image: {{ .Values.webapp.container.image }}
           imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-          command: ["/bin/bash"]
-          args: ["-c", "while true; do echo hello; sleep 10;done"]
+          command: ["echo"]
+          args: ["hello", "world"]
           tty: true
           resources:
             limits:
