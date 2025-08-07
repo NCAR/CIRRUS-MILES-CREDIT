@@ -7,8 +7,6 @@ metadata:
     app: {{ .Values.webapp.name }}
     group: {{ .Values.webapp.group }}
 spec:
-  #schedule: "0 0,6,12,18 * * *"  
-  #timeZone: "America/Denver"  
   concurrencyPolicy: Forbid  
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
