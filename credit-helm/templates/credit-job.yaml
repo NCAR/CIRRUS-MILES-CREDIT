@@ -26,9 +26,8 @@ spec:
         - name: {{ .Values.webapp.name }}
           image: {{ .Values.webapp.container.image }}
           imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-          command:
-            - echo
-            - "foo"
+          command: ["/bin/bash"]
+          args: ["echo date $(date)"]
           tty: true
           resources:
             limits:
