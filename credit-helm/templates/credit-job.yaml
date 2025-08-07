@@ -26,7 +26,6 @@ spec:
         - name: {{ .Values.webapp.name }}
           image: {{ .Values.webapp.container.image }}
           imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-          command: ["/bin/bash"]
           tty: true
           resources:
             limits:
