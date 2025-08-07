@@ -7,46 +7,41 @@ metadata:
     app: {{ .Values.webapp.name }}
     group: {{ .Values.webapp.group }}
 spec:
-  concurrencyPolicy: Forbid  
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 3
-  jobTemplate:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.webapp.name }}
     spec:
-      template:
-        metadata:
-          labels:
-            app: {{ .Values.webapp.name }}
-        spec:
-          volumes:
-            - name: {{ .Values.webapp.volume1.name }}
-              nfs:
-                server: {{ .Values.webapp.volume1.server }}
-                path: {{ .Values.webapp.volume1.path }}
-                readOnly: {{ .Values.webapp.volume1.readOnly }}
-          restartPolicy: OnFailure 
-          runtimeClassName: nvidia
-          securityContext:
-            fsGroup: 1000
-          containers:
-          - name: {{ .Values.webapp.name }}
-            image: {{ .Values.webapp.container.image }}
-            imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-            command: ["/bin/bash"]
-            args:
-              - |
-                echo "Starting job...";
-                RESULT=$(date);
-                echo "The current date is: $RESULT";
-            tty: true
-            resources:
-              limits:
-                memory: {{ .Values.webapp.container.limits.memory }}
-                cpu: {{ .Values.webapp.container.limits.cpu }}
-                nvidia.com/gpu: "1"
-              requests:
-                memory: {{ .Values.webapp.container.requests.memory }}
-                cpu: {{ .Values.webapp.container.requests.cpu }}
-                nvidia.com/gpu: "1"
-            volumeMounts:
+      restartPolicy: OnFailure
+      runtimeClassName: nvidia
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: {{ .Values.webapp.volume1.name }}
+          nfs:
+            server: {{ .Values.webapp.volume1.server }}
+            path: {{ .Values.webapp.volume1.path }}
+            readOnly: {{ .Values.webapp.volume1.readOnly }}
+      containers:
+        - name: {{ .Values.webapp.name }}
+          image: {{ .Values.webapp.container.image }}
+          imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+          command: ["/bin/bash"]
+          args:
+            - |
+              echo "Starting job...";
+              RESULT=$(date);
+              echo "The current date is: $RESULT";
+          tty: true
+          resources:
+            limits:
+              memory: {{ .Values.webapp.container.limits.memory }}
+              cpu: {{ .Values.webapp.container.limits.cpu }}
+              nvidia.com/gpu: "1"
+            requests:
+              memory: {{ .Values.webapp.container.requests.memory }}
+              cpu: {{ .Values.webapp.container.requests.cpu }}
+              nvidia.com/gpu: "1"
+          volumeMounts:
             - mountPath: /glade/campaign
               name: {{ .Values.webapp.volume1.name }}
