@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.webapp.name }}-test
+  name: {{ .Values.webapp.name }}-{{ randAlphaNum 5 | lower }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Values.webapp.name }}
