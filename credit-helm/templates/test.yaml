@@ -8,8 +8,9 @@ metadata:
     group: {{ .Values.webapp.group }}
 spec:
   containers:
-  - image: docker.io/ncging/argo-flask-demo:2025-06-24.16.33
-    name: pod
+  - name: {{ .Values.webapp.name }}
+    image: {{ .Values.webapp.container.image }}
+    imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
     command:
     - echo
     - Hello
