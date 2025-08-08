@@ -26,6 +26,19 @@ spec:
       - name: {{ .Values.webapp.name }}
         image: {{ .Values.webapp.container.image }}
         imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            echo "Starting job...";
+            RESULT=$(date);
+            echo "The current date is: $RESULT";
+        #command: ["/bin/bash", "-c"]
+        #args:
+        #  - |
+        #    ls;
+        #    ls /usr/local/bin/gpu-test;
+        #    /usr/local/bin/gpu-test;
+        #args: ["-c", "/usr/local/bin/gpu-test"]
         tty: true
         resources:
           limits:
