@@ -29,7 +29,7 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            /usr/local/bin/gpu-test;
+            bash /usr/local/bin/gpu-test;
         #args:
         #  - |
         #    echo "Starting job...";
