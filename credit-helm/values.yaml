@@ -13,6 +13,9 @@ webapp:
     server: gladedm1.ucar.edu
     path: /gpfs/csfs1
     readOnly: true
+  volume2:
+    name: output
+    size: 10Gi
   container: 
     image: docker.io/sgpearse/cirrustest:1.0
     port: 8080

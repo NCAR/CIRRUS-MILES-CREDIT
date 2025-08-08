@@ -19,6 +19,9 @@ spec:
             server: {{ .Values.webapp.volume1.server }}
             path: {{ .Values.webapp.volume1.path }}
             readOnly: {{ .Values.webapp.volume1.readOnly }}
+        - name: {{ .Values.webapp.volume2.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.webapp.volume2.name }}
       runtimeClassName: nvidia
       securityContext:
         fsGroup: 1000
@@ -55,3 +58,5 @@ spec:
         volumeMounts:
         - mountPath: /glade/campaign
           name: {{ .Values.webapp.volume1.name }}
+        - mountPath: /output
+          name: {{ .Values.webapp.volume2.name }}
