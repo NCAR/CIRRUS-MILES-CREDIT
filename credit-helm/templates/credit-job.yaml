@@ -26,7 +26,6 @@ spec:
                 server: {{ .Values.webapp.volume1.server }}
                 path: {{ .Values.webapp.volume1.path }}
                 readOnly: {{ .Values.webapp.volume1.readOnly }}
-          restartPolicy: OnFailure 
           runtimeClassName: nvidia
           securityContext:
             fsGroup: 1000
