@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.webapp.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.webapp.name }}
+    group: {{ .Values.webapp.group }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.webapp.name }}
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: {{ .Values.webapp.volume1.name }}
+          nfs:
+            server: {{ .Values.webapp.volume1.server }}
+            path: {{ .Values.webapp.volume1.path }}
+            readOnly: {{ .Values.webapp.volume1.readOnly }}
+      runtimeClassName: nvidia
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: {{ .Values.webapp.name }}
+        image: {{ .Values.webapp.container.image }}
+        imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            echo "Starting job...";
+            RESULT=$(date);
+            echo "The current date is: $RESULT";
+        tty: true
+        resources:
+          limits:
+            memory: {{ .Values.webapp.container.limits.memory }}
+            cpu: {{ .Values.webapp.container.limits.cpu }}
+            nvidia.com/gpu: "1"
+          requests:
+            memory: {{ .Values.webapp.container.requests.memory }}
+            cpu: {{ .Values.webapp.container.requests.cpu }}
+            nvidia.com/gpu: "1"
+        volumeMounts:
+        - mountPath: /glade/campaign
+          name: {{ .Values.webapp.volume1.name }}
