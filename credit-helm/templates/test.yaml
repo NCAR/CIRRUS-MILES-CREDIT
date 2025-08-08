@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: cirrustest
+  name: cirrustest2
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Values.webapp.name }}
