@@ -11,6 +11,7 @@ spec:
   - name: {{ .Values.webapp.name }}
     image: {{ .Values.webapp.container.image }}
     imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+    restartPolicy: OnFailure
     command:
     - echo
     - Hello
