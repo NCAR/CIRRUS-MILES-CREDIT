@@ -33,7 +33,7 @@ spec:
             RESULT=$(date);
             echo "The current date is: $RESULT";
         command: ["/bin/bash"]
-        args: /usr/local/bin/gpu-test
+        args: ["/usr/local/bin/gpu-test"]
         tty: true
         resources:
           limits:
