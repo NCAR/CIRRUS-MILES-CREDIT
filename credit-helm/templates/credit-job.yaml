@@ -35,8 +35,9 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            ls /usr/local/bin/gpu-test;
-            /usr/local/bin/gpu-test;
+            ls;
+            #ls /usr/local/bin/gpu-test;
+            #/usr/local/bin/gpu-test;
         #args: ["-c", "/usr/local/bin/gpu-test"]
         tty: true
         resources:
