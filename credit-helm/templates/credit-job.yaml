@@ -32,8 +32,12 @@ spec:
         #    echo "Starting job...";
         #    RESULT=$(date);
         #    echo "The current date is: $RESULT";
-        command: ["/bin/bash"]
-        args: ["-c", "/usr/local/bin/gpu-test"]
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            ls /usr/local/bin/gpu-test;
+            /usr/local/bin/gpu-test;
+        #args: ["-c", "/usr/local/bin/gpu-test"]
         tty: true
         resources:
           limits:
