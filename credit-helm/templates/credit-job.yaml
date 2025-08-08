@@ -1,5 +1,6 @@
 apiVersion: batch/v1
-kind: CronJob
+#kind: CronJob
+kind: Job
 metadata:
   name: {{ .Values.webapp.name }}
   namespace: {{ .Release.Namespace }}
