@@ -31,6 +31,7 @@ spec:
           securityContext:
             fsGroup: 1000
           containers:
+            restartPolicy: OnFailure 
           - name: {{ .Values.webapp.name }}
             image: {{ .Values.webapp.container.image }}
             imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
