@@ -37,13 +37,13 @@ spec:
         args:
           - |
             echo foo;
-#        command: ["/bin/bash", "-c"]
-#        args:
-#          - |
-#            echo "Starting job...";
-#            export TZ=MST;
-#            RESULT=$(date);
-#            echo "The current date is: $RESULT";
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            echo "Starting job...";
+            export TZ=MST;
+            RESULT=$(date);
+            echo "The current date is: $RESULT";
         #command: ["/bin/bash", "-c"]
         #args:
         #  - |
