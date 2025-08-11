@@ -36,6 +36,10 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
+            echo foo;
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
             echo "Starting job...";
             RESULT=$(date);
             echo "The current date is: $RESULT";
