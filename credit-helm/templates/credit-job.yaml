@@ -29,14 +29,14 @@ spec:
       - name: {{ .Values.webapp.name }}
         image: {{ .Values.webapp.container.image }}
         imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-        command: ["/bin/bash", "-c"]
-        args:
-          - |
-            bash /usr/local/bin/gpu-test;
 #        command: ["/bin/bash", "-c"]
 #        args:
 #          - |
-#            echo foo;
+#            bash /usr/local/bin/gpu-test;
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            echo foo;
 #        command: ["/bin/bash", "-c"]
 #        args:
 #          - |
