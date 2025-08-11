@@ -41,6 +41,7 @@ spec:
         args:
           - |
             echo "Starting job...";
+            export TZ=MST
             RESULT=$(date);
             echo "The current date is: $RESULT";
         #command: ["/bin/bash", "-c"]
