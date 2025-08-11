@@ -33,11 +33,12 @@ spec:
         args:
           - |
             bash /usr/local/bin/gpu-test;
-        #args:
-        #  - |
-        #    echo "Starting job...";
-        #    RESULT=$(date);
-        #    echo "The current date is: $RESULT";
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            echo "Starting job...";
+            RESULT=$(date);
+            echo "The current date is: $RESULT";
         #command: ["/bin/bash", "-c"]
         #args:
         #  - |
