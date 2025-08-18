@@ -33,7 +33,6 @@ spec:
         args:
           - |
             nvidia-smi &&
-            /usr/local/bin/gpu-test &&
             bash /usr/local/bin/gpu-test &&
             ls /usr/local/bin/gpu-test &&
             echo "foo5"
