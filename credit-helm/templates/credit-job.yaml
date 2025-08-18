@@ -32,7 +32,8 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            bash /usr/local/bin/gpu-test;
+            bash /usr/local/bin/gpu-test &&
+            echo "foo"
         #command: ["/bin/bash", "-c"]
         #args:
         #  - |
