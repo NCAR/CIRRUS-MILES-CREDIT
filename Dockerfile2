@@ -1,0 +1,76 @@
+# Start with NVIDIA’s PyTorch image (has CUDA + PyTorch + TorchVision preinstalled)
+FROM pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime
+
+WORKDIR /workspace
+
+# Install mamba (faster conda)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget git build-essential libarchive13 && \
+    rm -rf /var/lib/apt/lists/* && \
+    conda install -n base -c conda-forge mamba -y
+
+RUN git clone https://github.com/NCAR/miles-credit.git
+WORKDIR /workspace/miles-credit
+
+# Copy environment file
+#COPY environment_gpu.yml /tmp/environment_gpu.yml
+
+# Remove the "- ." line from the pip section
+RUN sed -i '/^[[:space:]]*-[[:space:]]\.$/d' environment_gpu.yml
+
+#RUN cat /tmp/environment_gpu.yml
+
+# Create environment with mamba (skip pip deps first for speed)
+RUN mamba env create -f environment_gpu.yml --name credit --quiet \
+    && conda clean -afy
+
+COPY . .
+
+# Activate environment by default
+SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
+
+# Install pip-only packages separately (avoids slow conflicts)
+RUN pip install \
+    mpi4py \
+    einops \
+    echo-opt \
+    optuna==3.6.0 \
+    bridgescaler \
+    segmentation-models-pytorch>=0.3.4 \
+    torch-harmonics \
+    torch_geometric \
+    haversine \
+    torchsummary \
+    sphinx-autoapi \
+    properscoring
+
+# Install your package in editable mode
+RUN pip install -e .
+
+# Default to bash in the conda environment
+#ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "credit", "bash"]
+SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
+
+# GPU test script
+#RUN echo '#!/bin/bash\n' \
+#         'echo "Testing GPU availability..."\n' \
+#         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
+#         > /usr/local/bin/gpu-test && chmod +x /usr/local/bin/gpu-test
+#
+#CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
+CMD ["/bin/bash", "-c", "gpu-test.sh"]
+
+#CMD ["/bin/bash", "-c", "nvidia-smi"]
+#RUN nvidia-smi
+
+# GPU test script
+#RUN echo '#!/bin/bash\n' \
+#         'echo "Testing GPU availability..."\n' \
+#         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
+#         > /usr/local/bin/gpu-test && chmod +x /usr/local/bin/gpu-test
+#
+#CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
+
+# Set credit to the devault conda environment
+RUN conda init bash && \
+    echo "conda activate credit" >> ~/.bashrc
