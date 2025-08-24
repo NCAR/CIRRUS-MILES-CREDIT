@@ -32,7 +32,8 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            ls
+            nvidia-smi
+            #ls
             #python applications/gfs_init.py
             #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
             #nvidia-smi &&
