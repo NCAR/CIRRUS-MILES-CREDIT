@@ -32,6 +32,7 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
+            echo $SHELL
             conda env list
             conda activate credit
             ls
