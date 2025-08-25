@@ -34,8 +34,9 @@ spec:
           - |
             echo $SHELL
             conda env list
-            conda activate credit
-            ls
+            conda run -n credit python applications/gfs_init.py
+            #conda activate credit
+            #ls
             #python applications/gfs_init.py
             #nvidia-sm
             #ls
