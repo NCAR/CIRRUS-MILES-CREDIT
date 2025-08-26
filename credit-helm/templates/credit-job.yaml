@@ -34,7 +34,7 @@ spec:
           - |
             mv model_predict_gfs.yml config
             cd applications
-            sed -i '21a print(base_path)' gfs_init.py
+            sed -i "21a $'\t'print(base_path)" gfs_init.py
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
             #conda activate credit
             #ls
