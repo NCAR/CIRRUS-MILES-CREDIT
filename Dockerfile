@@ -48,6 +48,8 @@ RUN echo '#!/bin/bash\n' \
 
 CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
 
+COPY model_predict_gfs.yml .
+
 # Set credit to the devault conda environment
 RUN conda init bash && \
     echo "conda activate credit" >> ~/.bashrc
