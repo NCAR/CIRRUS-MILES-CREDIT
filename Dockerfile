@@ -31,7 +31,7 @@ SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # Required by gfs_init.py, and possibly other routines as well
-RUN pip install xesmf
+RUN pip install xesmf esmpy
 
 # Clone and install miles-credit
 WORKDIR /workspace
@@ -51,3 +51,5 @@ CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
 # Set credit to the devault conda environment
 RUN conda init bash && \
     echo "conda activate credit" >> ~/.bashrc
+
+#CMD ["tail", "-f", "/dev/null"]
