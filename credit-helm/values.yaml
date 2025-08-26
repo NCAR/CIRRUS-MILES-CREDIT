@@ -17,7 +17,7 @@ webapp:
     name: output
     size: 10Gi
   container: 
-    image: docker.io/sgpearse/miles-credit:1.2
+    image: docker.io/sgpearse/miles-credit:1.1
     port: 8080
     requests: 
       memory: 2Gi
