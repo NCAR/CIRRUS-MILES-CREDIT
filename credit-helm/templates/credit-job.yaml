@@ -40,7 +40,6 @@ spec:
             #conda activate credit
             #python applications/gfs_init.py
             #nvidia-sm
-            #ls
             #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
             #nvidia-smi &&
             #bash /usr/local/bin/gpu-test &&
