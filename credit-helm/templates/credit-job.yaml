@@ -33,7 +33,7 @@ spec:
         args:
           - |
             cd applications
-            conda run -n credit python gfs_init.py -c model_predict_gfs.yml
+            conda run -n credit python gfs_init.py -c ../model_predict_gfs.yml
             #conda activate credit
             #ls
             #python applications/gfs_init.py
