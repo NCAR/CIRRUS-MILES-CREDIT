@@ -42,7 +42,6 @@ spec:
             ls /output
             #sed -i "21a $'\t\t'print(base_path)" gfs_init.py
             #python applications/gfs_init.py
-            #nvidia-sm
             #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
             #nvidia-smi &&
             #bash /usr/local/bin/gpu-test &&
