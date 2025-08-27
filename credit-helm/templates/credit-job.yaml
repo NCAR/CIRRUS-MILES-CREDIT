@@ -32,6 +32,7 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
+            pwd
             mv model_predict_gfs.yml config
             cd applications
             sed -i "21a\    print(base_path)" gfs_init.py
