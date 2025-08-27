@@ -36,6 +36,7 @@ spec:
             cd applications
             sed -i "21a\    print(base_path)" gfs_init.py
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
+            cat ../config/model_predict_gfs.yml
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             echo "output"
@@ -46,7 +47,6 @@ spec:
             #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
             #bash /usr/local/bin/gpu-test &&
             #ls /usr/local/bin/gpu-test &&
-            #echo "foo5" &&
             
         #command: ["/bin/bash", "-c"]
         #args:
