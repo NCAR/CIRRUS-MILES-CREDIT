@@ -152,7 +152,8 @@ predict:
         complevel: 1
         shuffle: True
         chunksizes: [1, *height, *width]
-    initial_condition_path: "/glade/derecho/scratch/dgagne/gfs_init/"
+   #initial_condition_path: "/glade/derecho/scratch/dgagne/gfs_init/"
+    initial_condition_path: "/output"
     static_fields: "/glade/campaign/cisl/aiml/credit/static_scalers/gfs_static_whole.nc"
     metadata: '/glade/u/home/dgagne/miles-credit/credit/metadata/era5.yaml'
     save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
