@@ -48,7 +48,6 @@ spec:
             echo "ROLLOUT REALTIME"
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             #
-            #
             #sed -i "21a $'\t\t'print(base_path)" gfs_init.py
             #python applications/gfs_init.py
             #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
