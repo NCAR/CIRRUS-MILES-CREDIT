@@ -42,10 +42,9 @@ spec:
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
             cat ../config/model_predict_gfs.yml
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
-            conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             echo "output"
-            touch /output/test2.txt
             ls /output
+            conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             #
             #sed -i "21a $'\t\t'print(base_path)" gfs_init.py
             #python applications/gfs_init.py
