@@ -32,9 +32,11 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
+            git pull https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+            mv CIRRUS-MILES-CREDIT/model_predict_gfs.yml config
             pwd
-            cat model_predict_gfs.yml
-            mv model_predict_gfs.yml config
+            #cat model_predict_gfs.yml
+            #mv model_predict_gfs.yml config
             cd applications
             sed -i "21a\    print(base_path)" gfs_init.py
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
