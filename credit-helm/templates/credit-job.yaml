@@ -42,6 +42,7 @@ spec:
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
             cat ../config/model_predict_gfs.yml
             echo "GFS INIT"
+            ls -a /output
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
             echo "output"
             ls -a /output
