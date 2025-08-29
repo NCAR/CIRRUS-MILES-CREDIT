@@ -49,6 +49,7 @@ spec:
             echo "output"
             ls -a /output
             echo "ROLLOUT REALTIME"
+            mkdir -p /output/wxformer_1h_gfs
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             #
             #sed -i "21a $'\t\t'print(base_path)" gfs_init.py

@@ -157,7 +157,8 @@ predict:
     initial_condition_path: "/output"
     static_fields: "/glade/campaign/cisl/aiml/credit/static_scalers/gfs_static_whole.nc"
     metadata: '/glade/u/home/dgagne/miles-credit/credit/metadata/era5.yaml'
-    save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
+    #save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
+    save_forecast: '/output/wxformer_1h_gfs/'
 
     # turn-off low-pass filter
     use_laplace_filter: False
