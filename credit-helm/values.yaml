@@ -16,7 +16,7 @@ webapp:
   volume2:
     name: output
     mountPath: /output
-    size: 40Gi
+    size: 160Gi
   container: 
     image: docker.io/sgpearse/miles-credit:1.3
     port: 8080
