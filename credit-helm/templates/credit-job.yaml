@@ -41,17 +41,17 @@ spec:
             sed -i "21a\    print(base_path)" gfs_init.py
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
             sed -i 's|to_zarr/|to_netcdf|' gfs_init.py
-            cat ../config/model_predict_gfs.yml
+            cat ../config/gfs_init.py
             echo "GFS INIT"
             ls -lrth /output
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
-            printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             echo "output"
             ls -a /output
             echo "ROLLOUT REALTIME"
             mkdir -p /output/wxformer_1h_gfs
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -lrth /output/wxformer_1h_gfs
+            #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             #
             #sed -i "21a $'\t\t'print(base_path)" gfs_init.py
             #python applications/gfs_init.py
