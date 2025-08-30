@@ -43,7 +43,7 @@ spec:
             cd applications
             sed -i "21a\    print(base_path)" gfs_init.py
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
-            sed -i 's|to_zarr/|to_netcdf|' gfs_init.py
+            sed -i 's/to_zarr/to_netcdf/g' gfs_init.py
             cat gfs_init.py
             echo "GFS INIT"
             ls -lrth /output
