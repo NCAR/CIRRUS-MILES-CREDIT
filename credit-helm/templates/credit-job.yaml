@@ -34,6 +34,7 @@ spec:
           - |
             rm -rf /output/*
             pip install zarr==2.17.2
+            conda run -n credit conda install zarr==2.17.2
             conda run -n credit python -c "import zarr; print(zarr.__version__)"
             git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             mv CIRRUS-MILES-CREDIT/model_predict_gfs.yml config
