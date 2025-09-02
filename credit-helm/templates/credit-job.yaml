@@ -53,6 +53,7 @@ spec:
             ls -a /output
             echo "ROLLOUT REALTIME"
             mkdir -p /output/wxformer_1h_gfs
+            sed -i "81a\    print(fn)" miles-credit/credit/datasets/realtime_predict.py
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -lrth /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
