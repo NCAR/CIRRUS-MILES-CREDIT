@@ -19,7 +19,7 @@ RUN wget https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_
 
 # Create Conda environment with Python + pysteps + build tools
 RUN conda create -n credit python=3.11 -c conda-forge -y && \
-    conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy -y && \
+    conda run -n credit conda install -c conda-forge zarr=2.17.2 pysteps pip setuptools wheel esmf esmpy -y && \
     conda clean -afy
 
 RUN conda init bash

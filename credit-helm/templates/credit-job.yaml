@@ -47,7 +47,7 @@ spec:
             #sed -i "50a\            consolidated=True," gfs_init.py
             #sed -i 's/to_zarr/to_netcdf/g' gfs_init.py
             #cat gfs_init.py
-            conda run -n credit conda install zarr==2.17.2
+            #conda run -n credit conda install zarr==2.17.2
             echo "GFS INIT"
             ls -lrth /output
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
@@ -59,6 +59,7 @@ spec:
             ls -a /output
             mkdir -p /output/wxformer_1h_gfs
             echo "ROLLOUT REALTIME"
+            conda run -n credit conda list zarr
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
