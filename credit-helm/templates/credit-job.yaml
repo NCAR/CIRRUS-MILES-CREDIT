@@ -61,6 +61,9 @@ spec:
             echo "ROLLOUT REALTIME"
             conda run -n credit conda list zarr
             sed -i '154s/.*/        dataset = xr.open_zarr(filename, consolidated=False)/' ../credit/data.py
+            sed -i '264a\    print(varnames_keep)/' ../credit/data.py
+            sed -i '264a\    data_variable_names = list(xarray_dataset.data_vars.keys())
+            sed -i '264a\    print(f"Data variable names: {data_variable_names}")
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
