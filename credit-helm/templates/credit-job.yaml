@@ -65,7 +65,6 @@ spec:
             ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             #
-            #
             #python applications/gfs_init.py
             #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
             #bash /usr/local/bin/gpu-test &&
