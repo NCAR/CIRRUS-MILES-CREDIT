@@ -53,12 +53,14 @@ spec:
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
             echo "output"
             ls -a /output
-            echo "ROLLOUT REALTIME"
-            mkdir -p /output/wxformer_1h_gfs
             #sed -i "81a\    print(fn)" miles-credit/credit/datasets/realtime_predict.py
             conda run -n credit python -c "import xarray as xr; ds=xr.open_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=False); ds.to_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=True, mode='a')"
+            echo "output2"
+            ls -a /output
+            mkdir -p /output/wxformer_1h_gfs
+            echo "ROLLOUT REALTIME"
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
-            ls -lrth /output/wxformer_1h_gfs
+            ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             #
             #
