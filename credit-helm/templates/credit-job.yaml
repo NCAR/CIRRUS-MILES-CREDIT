@@ -64,6 +64,7 @@ spec:
             sed -i '264a\    print(varnames_keep)/' ../credit/data.py
             sed -i '265a\    data_variable_names = list(xarray_dataset.data_vars.keys())' ../credit/data.py
             sed -i '266a\    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
+            cat ../credit/data.py
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
