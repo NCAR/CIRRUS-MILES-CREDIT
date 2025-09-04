@@ -73,6 +73,9 @@ spec:
             "
             echo "output2"
             ls -a /output
+            echo "output3"
+            ls -a /output/gfs_init_20250702_0000.zarr
+            ls -a /output
             find /output -name *zmetadata*
             mkdir -p /output/wxformer_1h_gfs
             echo "ROLLOUT REALTIME"
