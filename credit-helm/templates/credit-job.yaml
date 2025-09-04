@@ -41,6 +41,7 @@ spec:
             #cat model_predict_gfs.yml
             #mv model_predict_gfs.yml config
             #
+            conda run -n credit python -m pip install -e .
             cd applications
             sed -i "21a\    print(base_path)" gfs_init.py
             sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
@@ -68,7 +69,7 @@ spec:
             #cat ../credit/data.py
             #
             #
-            conda activate credit
+            #conda activate credit
             LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -a /output/wxformer_1h_gfs
