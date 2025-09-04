@@ -18,7 +18,7 @@ webapp:
     mountPath: /output
     size: 160Gi
   container: 
-    image: docker.io/sgpearse/miles-credit:1.3
+    image: docker.io/sgpearse/miles-credit:1.4
     port: 8080
     requests: 
       memory: 2Gi

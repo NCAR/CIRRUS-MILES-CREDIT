@@ -21,7 +21,7 @@ dependencies:
 ## Earth sciences and visualization
   - xarray
   - netcdf4
-  - zarr
+  - zarr>=2,<3
   - xesmf
   - dask
   - dask-jobqueue

@@ -39,7 +39,6 @@ WORKDIR /workspace
 RUN git clone https://github.com/NCAR/miles-credit.git
 WORKDIR /workspace/miles-credit
 #RUN pip install --no-cache-dir .
-RUN sed -i '16s/.*/zarr>=2,<3' ./requirements.txt
 RUN pip install -e .
 
 # GPU test script
