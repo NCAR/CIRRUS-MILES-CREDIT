@@ -67,6 +67,7 @@ spec:
             #sed -i '266a\    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
             #cat ../credit/data.py
             #
+            conda activate credit
             export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
             echo $LD_LIBRARY_PATH
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
