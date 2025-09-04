@@ -60,7 +60,7 @@ spec:
             #conda run -n credit python -c "import xarray as xr; ds=xr.open_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=False); ds.to_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=True, mode='a')"
             echo "output2"
             ls -a /output
-            find / -name *zmetadata*
+            find /output -name *zmetadata*
             mkdir -p /output/wxformer_1h_gfs
             echo "ROLLOUT REALTIME"
             conda run -n credit conda list zarr
