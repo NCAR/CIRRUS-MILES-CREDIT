@@ -51,11 +51,12 @@ spec:
             #conda run -n credit conda install zarr==2.17.2
             echo "GFS INIT"
             ls -lrth /output
+            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
             echo "output"
             ls -a /output
             #sed -i "81a\    print(fn)" miles-credit/credit/datasets/realtime_predict.py
-            conda run -n credit python -c "import xarray as xr; ds=xr.open_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=False); ds.to_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=True, mode='a')"
+            #conda run -n credit python -c "import xarray as xr; ds=xr.open_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=False); ds.to_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=True, mode='a')"
             echo "output2"
             ls -a /output
             mkdir -p /output/wxformer_1h_gfs
@@ -70,7 +71,7 @@ spec:
             #
             #
             #conda activate credit
-            LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH \
+            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
