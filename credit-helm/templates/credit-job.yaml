@@ -71,6 +71,7 @@ spec:
                 print('❌ Failed to consolidate metadata:', e)
                 sys.exit(1)
             "
+            conda install -n credit cftime
             echo "output2"
             ls -a /output
             echo "output3"
