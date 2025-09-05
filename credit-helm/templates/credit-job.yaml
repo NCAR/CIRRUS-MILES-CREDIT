@@ -93,7 +93,7 @@ spec:
             #
             #
             #conda activate credit
-            sed -i "97a\                self.dyn_forcing_files=None" miles-credit/credit/datasets/realtime_predict.py
+            sed -i "97a\                self.dyn_forcing_files=None" ../credit/datasets/realtime_predict.py
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
             ls -a /output/wxformer_1h_gfs
