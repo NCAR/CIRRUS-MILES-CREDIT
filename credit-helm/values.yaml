@@ -21,8 +21,8 @@ webapp:
     image: docker.io/sgpearse/miles-credit:1.4
     port: 8080
     requests: 
-      memory: 2Gi
+      memory: 24Gi
       cpu: 2
     limits: 
-      memory: 64Gi
+      memory: 128Gi
       cpu: 8
