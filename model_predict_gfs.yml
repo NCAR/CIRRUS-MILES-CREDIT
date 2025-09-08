@@ -4,8 +4,8 @@
 # The model is trained on 6 hourly model-level ERA5 data with top solar irradiance, geopotential, and land-sea mask
 # Output variables: model level [U, V, T, Q], single level [SP, t2m], and 500 hPa [U, V, T, Z, Q]
 # --------------------------------------------------------------------------------------------------------------------- #
-#save_loc: '/glade/work/dgagne/credit_arxiv_models/wxformer_1h/finetune_final/'
-save_loc: '/output'
+save_loc: '/glade/work/dgagne/credit_arxiv_models/wxformer_1h/finetune_final/'
+#save_loc: '/output'
 seed: 1000
 
 model:
