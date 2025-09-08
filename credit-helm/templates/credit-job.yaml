@@ -85,6 +85,7 @@ spec:
             sed -i "97a\                print('not being set')" gfs_init.py
             conda run -n credit conda list zarr
             #
+            sed -i '153a\        print("Filename: " + filename)/' ../credit/data.py
             #sed -i '154s/.*/        dataset = xr.open_zarr(filename, consolidated=False)/' ../credit/data.py
             #sed -i '264a\    print(varnames_keep)\n    data_variable_names = list(xarray_dataset.data_vars.keys())\n    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
             #sed -i '264a\    print(varnames_keep)' ../credit/data.py
