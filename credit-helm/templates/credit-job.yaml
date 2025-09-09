@@ -35,6 +35,7 @@ spec:
             rm -rf /output/*
             pwd
             ls
+            echo hi
             git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             conda run -n credit python -m pip install -e .
             git pull
