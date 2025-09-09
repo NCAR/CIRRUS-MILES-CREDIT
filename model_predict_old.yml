@@ -5,8 +5,8 @@
 # Output variables: model level [U, V, T, Q], single level [SP, t2m], and 500 hPa [U, V, T, Z, Q]
 # --------------------------------------------------------------------------------------------------------------------- #
 #save_loc: '/glade/work/dgagne/credit_arxiv_models/wxformer_1h/finetune_final/'
-save_loc: '/output'
-#save_loc: '/glade/work/pearse/credit_arxiv_models/wxformer_1h/finetune_final/'
+#save_loc: '/output'
+save_loc: '/glade/campaign/cisl/vast/credit_arxiv_models/wxformer_1h/finetune_final/'
 seed: 1000
 
 data:
@@ -21,7 +21,7 @@ data:
     surface_variables: ['SP','t2m','V500','U500','T500','Z500','Q500']
     #save_loc_surface: '/glade/derecho/scratch/dgagne/era5_zarr/y_TOTAL_2021*'
     #save_loc_surface: '/glade/derecho/scratch/dgagne/gfs_init/*.zarr'
-    save_loc: '/output/*.zarr'
+    save_loc_surface: '/output/*.zarr'
     
     # dynamic forcing variables
     dynamic_forcing_variables: ['tsi']
