@@ -44,7 +44,7 @@ spec:
             echo "GFS INIT"
             pwd
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python gfs_init.py -c ../../../model_predict_old.yml
+            conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             echo "output1"
             ls -a /output
             conda run -n credit python -c "
@@ -72,20 +72,8 @@ spec:
             echo "ROLLOUT REALTIME"
             sed -i "97a\                print('not being set')" gfs_init.py
             conda run -n credit conda list zarr
-            #
-            #sed -i '153a\        print("Filename: " + filename)/' ../credit/data.py
-            #sed -i '154s/.*/        dataset = xr.open_zarr(filename, consolidated=False)/' ../credit/data.py
-            #sed -i '264a\    print(varnames_keep)\n    data_variable_names = list(xarray_dataset.data_vars.keys())\n    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
-            #sed -i '264a\    print(varnames_keep)' ../credit/data.py
-            #sed -i '265a\    data_variable_names = list(xarray_dataset.data_vars.keys())' ../credit/data.py
-            #sed -i '266a\    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
-            #cat ../credit/data.py
-            #
-            #
-            #conda activate credit
-            sed -i "97a\                self.dyn_forcing_files=None" ../credit/datasets/realtime_predict.py
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python rollout_realtime.py -c ../../../model_predict_old.yml
+            conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             ls -a /output/wxformer_1h_gfs
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             #
