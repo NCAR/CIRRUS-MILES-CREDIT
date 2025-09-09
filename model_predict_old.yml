@@ -5,8 +5,8 @@
 # Output variables: model level [U, V, T, Q], single level [SP, t2m], and 500 hPa [U, V, T, Z, Q]
 # --------------------------------------------------------------------------------------------------------------------- #
 #save_loc: '/glade/work/dgagne/credit_arxiv_models/wxformer_1h/finetune_final/'
-#save_loc: '/output'
-save_loc: '/glade/work/pearse/credit_arxiv_models/wxformer_1h/finetune_final/'
+save_loc: '/output'
+#save_loc: '/glade/work/pearse/credit_arxiv_models/wxformer_1h/finetune_final/'
 seed: 1000
 
 data:
@@ -153,13 +153,12 @@ predict:
         complevel: 1
         shuffle: True
         chunksizes: [1, *height, *width]
-   #initial_condition_path: "/glade/derecho/scratch/dgagne/gfs_init/"
-    initial_condition_path: "/glade/derecho/scratch/pearse/gfs_init/"
-   # initial_condition_path: "/output"
+   #initial_condition_path: "/glade/derecho/scratch/pearse/gfs_init/"
+    initial_condition_path: "/output"
     static_fields: "/glade/campaign/cisl/aiml/credit/static_scalers/gfs_static_whole.nc"
-    #static_fields: "/Users/dgagne/data/CREDIT_data/LSM_static_variables_ERA5_zhght.nc" # Static forcing file.
     metadata: '/glade/u/home/dgagne/miles-credit/credit/metadata/era5.yaml'
-    save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
+    #save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
+    save_forecast: '/output/wxformer_1h_gfs'
 
     # turn-off low-pass filter
     use_laplace_filter: False
