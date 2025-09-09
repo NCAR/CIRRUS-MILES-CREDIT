@@ -36,9 +36,9 @@ spec:
             pwd
             ls
             echo hijfkdls
-            git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+            git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             conda run -n credit python -m pip install -e .
-            git pull
+            git pull -q
             git checkout djgagne
             cd applications
             #sed -i "21a\    print(base_path)" gfs_init.py
