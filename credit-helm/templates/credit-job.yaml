@@ -70,7 +70,7 @@ spec:
             cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
             mkdir -p /output/wxformer_1h_gfs
             echo "ROLLOUT REALTIME"
-            sed -i "97a\                print('not being set')" gfs_init.py
+            sed -i "489a\                print("save_loc " + save_loc)" gfs_init.py
             conda run -n credit conda list zarr
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
