@@ -22,6 +22,9 @@ spec:
         - name: {{ .Values.webapp.volume2.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.webapp.volume2.name }}
+        - name: {{ .Values.webapp.volume3.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.webapp.volume3.name }}
       runtimeClassName: nvidia
       securityContext:
         fsGroup: 1000
@@ -32,6 +35,7 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
+            cp -r /glade/campaign/cisl/vast/credit_arxiv_models/wxformer_1h/finetune_final /checkpoint
             rm -rf /output/*
             pwd
             ls

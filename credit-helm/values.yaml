@@ -17,6 +17,10 @@ webapp:
     name: output
     mountPath: /output
     size: 160Gi
+  volume3:
+    name: checkpoint
+    mountPath: /checkpoint
+    size: 5Gi
   container: 
     image: docker.io/sgpearse/miles-credit:1.4
     port: 8080
