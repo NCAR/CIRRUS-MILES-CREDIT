@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: {{ .Values.webapp.volume3.name }}
+    namespace: {{ .Release.Namespace }}
+spec:
+    accessModes:
+        - ReadWriteOnce
+    storageClassName: cephf-kubepv
+    resources:
+        requests:
+            storage: {{ .Values.webapp.volume3.size | default "1Gi" }} 
