@@ -35,7 +35,9 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            cp -r /glade/campaign/cisl/vast/credit_arxiv_models/wxformer_1h/finetune_final /checkpoint
+            checkpointDir=/glade/campaign/cisl/vast/credit_arxiv_models/wxformer_1h/finetune_final \
+            [ -z "$(find /checkpoint -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
+            ls /checkpoint
             rm -rf /output/*
             pwd
             ls
@@ -45,7 +47,7 @@ spec:
             git pull -q
             git checkout djgagne
             cd applications
-            echo "GFS INIT!!"
+            echo "GFS INIT!!!"
             pwd
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
