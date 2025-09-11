@@ -47,7 +47,7 @@ spec:
             git pull -q
             git checkout djgagne
             cd applications
-            echo "GFS INIT!!!"
+            echo "GFS INIT!!!!"
             pwd
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
