@@ -42,7 +42,7 @@ spec:
             echo mean!
             ls /glade/campaign/cisl/vast/pearse/static_scalers/mean_1h_1979_2018_16lev_0.25deg.nc
             echo std!
-            /glade/campaign/cisl/vast/pearse/static_scalers/std_residual_1h_1979_2018_16lev_0.25deg.nc
+            ls /glade/campaign/cisl/vast/pearse/static_scalers/std_residual_1h_1979_2018_16lev_0.25deg.nc
             checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
             [ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
             echo "scott's dir"
