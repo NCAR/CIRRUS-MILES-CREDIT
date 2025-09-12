@@ -92,7 +92,9 @@ spec:
             chmod -R 777 /output/wxformer_1h_gfs
             echo "ROLLOUT REALTIME"
             conda run -n credit conda list zarr
-            sed -i "488a\    print('save_loc ' + save_loc)" rollout_realtime.py
+            #sed -i "488a\    print('save_loc ' + save_loc)" rollout_realtime.py
+            sed -i "168a\    print('dyn_forcing_files')" rollout_realtime.py
+            sed -i "169a\    print(dyn_forcing_files)" rollout_realtime.py
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             ls -a /output/wxformer_1h_gfs
