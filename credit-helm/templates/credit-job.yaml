@@ -35,52 +35,61 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            checkpointDir=/glade/campaign/cisl/vast/credit_arxiv_models/wxformer_1h/finetune_final \
-            [ -z "$(find /checkpoint -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
+            checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
+            [ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
+            echo "scott's dir"
+            ls /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final
+            echo "checkpoint"
             ls /checkpoint
-            rm -rf /output/*
-            pwd
-            ls
-            echo hijfkdls
-            git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-            conda run -n credit python -m pip install -q -e .
-            git pull -q
-            git checkout djgagne
-            cd applications
-            echo "GFS INIT!!!!"
-            pwd
-            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            echo "output1"
-            ls -a /output
-            conda run -n credit python -c "
-            import sys, xarray as xr
-            
-            try:
-                store = '/output/gfs_init_20250702_0000.zarr'
-                ds = xr.open_zarr(store, consolidated=False)
-                ds.to_zarr(store, consolidated=True, mode='a')
-                xr.open_zarr(store, consolidated=True)  # Validation
-                print('✅ .zmetadata written and valid')
-            except Exception as e:
-                print('❌ Failed to consolidate metadata:', e)
-                sys.exit(1)
-            "
-            conda install -n credit cftime
-            echo "output2"
-            ls -a /output
-            echo "output3"
-            ls -a /output/gfs_init_20250702_0000.zarr
-            ls -a /output
-            find /output -name *zmetadata*
-            cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
-            mkdir -p /output/wxformer_1h_gfs
-            echo "ROLLOUT REALTIME"
-            conda run -n credit conda list zarr
-            sed -i "488a\    print('save_loc ' + save_loc)" rollout_realtime.py
-            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            ls -a /output/wxformer_1h_gfs
+            cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
+            echo "checkpoint2"
+            ls /checkpoint
+            #rm -rf /output/*
+            #pwd
+            #ls
+            #echo hijfkdls
+            #git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+            #conda run -n credit python -m pip install -q -e .
+            #git pull -q
+            #git checkout djgagne
+            #cd applications
+            #echo "GFS INIT!!!!"
+            #pwd
+            #LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
+            #conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
+            #echo "output1"
+            #ls -a /output
+            #conda run -n credit python -c "
+            #import sys, xarray as xr
+            #
+            #try:
+            #    store = '/output/gfs_init_20250702_0000.zarr'
+            #    ds = xr.open_zarr(store, consolidated=False)
+            #    ds.to_zarr(store, consolidated=True, mode='a')
+            #    xr.open_zarr(store, consolidated=True)  # Validation
+            #    print('✅ .zmetadata written and valid')
+            #except Exception as e:
+            #    print('❌ Failed to consolidate metadata:', e)
+            #    sys.exit(1)
+            #"
+            #conda install -n credit cftime
+            #echo "output2"
+            #ls -a /output
+            #echo "output3"
+            #ls -a /output/gfs_init_20250702_0000.zarr
+            #ls -a /output
+            #find /output -name *zmetadata*
+            #cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
+            #chmod -R 777 /output
+            #mkdir -p /output/wxformer_1h_gfs
+            #chmod -R 777 /output/wxformer_1h_gfs
+            #echo "ROLLOUT REALTIME"
+            #conda run -n credit conda list zarr
+            #sed -i "488a\    print('save_loc ' + save_loc)" rollout_realtime.py
+            #LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
+            #conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
+            #ls -a /output/wxformer_1h_gfs
+#
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             #
             #
@@ -122,3 +131,5 @@ spec:
           name: {{ .Values.webapp.volume1.name }}
         - mountPath: /output
           name: {{ .Values.webapp.volume2.name }}
+        - mountPath: /checkpoint
+          name: {{ .Values.webapp.volume3.name }}
