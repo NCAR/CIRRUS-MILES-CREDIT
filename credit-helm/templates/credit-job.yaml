@@ -35,6 +35,14 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
+            echo forcing
+            ls /glade/campaign/cisl/vast/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
+            echo static norm
+            ls /glade/campaign/cisl/vast/pearse/static_scalers/gfs_static_norm.nc
+            echo mean
+            ls /glade/campaign/cisl/vast/pearse/static_scalers/mean_1h_1979_2018_16lev_0.25deg.nc
+            echo std
+            /glade/campaign/cisl/vast/pearse/static_scalers/std_residual_1h_1979_2018_16lev_0.25deg.nc
             checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
             [ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
             echo "scott's dir"
@@ -61,7 +69,6 @@ spec:
             ls -a /output
             conda run -n credit python -c "
             import sys, xarray as xr
-            
             try:
                 store = '/output/gfs_init_20250702_0000.zarr'
                 ds = xr.open_zarr(store, consolidated=False)
