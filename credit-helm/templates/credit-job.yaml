@@ -35,28 +35,27 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            echo forcing!
-            ls /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
-            echo static norm!
-            ls /glade/campaign/cisl/vast/pearse/static_scalers/gfs_static_norm.nc
-            echo mean!
-            ls /glade/campaign/cisl/vast/pearse/static_scalers/mean_1h_1979_2018_16lev_0.25deg.nc
-            echo std!
-            ls /glade/campaign/cisl/vast/pearse/static_scalers/std_residual_1h_1979_2018_16lev_0.25deg.nc
+            touch /output/foo.txt
+            rm -rf /checkpoint/*
             checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
             [ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
             echo "scott's dir"
             ls /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final
-            echo "checkpoint"
+            echo "checkpoint contents:"
             ls /checkpoint
             cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
             cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
             echo "checkpoint2"
             ls /checkpoint
+            conda run -n credit LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH python -c "
+            import xarray as xr
+            dataset = xr.open_dataset('/glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc')
+            print(dataset)
+            "
             rm -rf /output/*
-            pwd
-            ls
-            echo hijfkdls
+            touch /output/test
+            echo "output???"
+            ls -lrth /output
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             conda run -n credit python -m pip install -q -e .
             git pull -q
@@ -64,6 +63,8 @@ spec:
             cd applications
             echo "GFS INIT!!!!"
             pwd
+            echo "output0"
+            ls -a /output
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             echo "output1"
@@ -99,6 +100,16 @@ spec:
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             ls -a /output/wxformer_1h_gfs
+#
+# copy scalers
+            #echo forcing!
+            #ls /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
+            #echo static norm!
+            #ls /glade/campaign/cisl/vast/pearse/static_scalers/gfs_static_norm.nc
+            #echo mean!
+            #ls /glade/campaign/cisl/vast/pearse/static_scalers/mean_1h_1979_2018_16lev_0.25deg.nc
+            #echo std!
+            #ls /glade/campaign/cisl/vast/pearse/static_scalers/std_residual_1h_1979_2018_16lev_0.25deg.nc
 #
             #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
             #

@@ -17,10 +17,14 @@ webapp:
     name: output
     mountPath: /output
     size: 160Gi
+    securityContext:
+      runAsGroup: 1000
   volume3:
     name: checkpoint
     mountPath: /checkpoint
     size: 5Gi
+    securityContext:
+      runAsGroup: 1000
   container: 
     image: docker.io/sgpearse/miles-credit:1.4
     port: 8080
