@@ -1,5 +1,9 @@
-FROM nvidia/cuda:12.2.0-base-ubuntu22.04
-
+#FROM nvidia/cuda:12.2.0-base-ubuntu22.04
+#FROM nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:13.0.1-base-ubuntu24.04
+#RUN useradd -u 1000 -m credit
+#USER credit
+#USER root
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CONDA_DIR=/opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -54,5 +58,8 @@ COPY model_predict_gfs.yml .
 # Set credit to the devault conda environment
 RUN conda init bash && \
     echo "conda activate credit" >> ~/.bashrc
+
+#RUN useradd -u 1010 -m app
+USER 1000
 
 #CMD ["tail", "-f", "/dev/null"]
