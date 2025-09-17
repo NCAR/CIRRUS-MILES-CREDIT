@@ -5,10 +5,10 @@ metadata:
     namespace: {{ .Release.Namespace }}
 spec:
     accessModes:
-        - ReadWriteOnce
-        #- ReadWriteMany
-    storageClassName: ceph-kubepv
-    #storageClassName: cephfs
+        - ReadWriteMany
+        #- ReadWriteOnce
+    storageClassName: cephfs
+    #storageClassName: ceph-kubepv
     resources:
         requests:
             storage: {{ .Values.webapp.volume3.size | default "1Gi" }} 
