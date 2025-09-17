@@ -60,6 +60,7 @@ RUN conda init bash && \
     echo "conda activate credit" >> ~/.bashrc
 
 #RUN useradd -u 1010 -m app
+RUN chmod -R 777 /workspace
 USER 1000
 
 #CMD ["tail", "-f", "/dev/null"]
