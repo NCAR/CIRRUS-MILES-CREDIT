@@ -11,7 +11,7 @@ spec:
     #storageClassName: ceph-kubepv
     resources:
         requests:
-            storage: {{ .Values.webapp.volume3.size | default "1Gi" }} 
+            storage: {{ .Values.webapp.volume3.size | default "50Gi" }} 
 #---
 #metadata:
 #    name: {{ .Values.webapp.volume2.name }}

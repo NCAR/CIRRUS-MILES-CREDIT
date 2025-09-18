@@ -9,4 +9,4 @@ spec:
     storageClassName: cephfs
     resources:
         requests:
-            storage: {{ .Values.webapp.volume2.size | default "1Gi" }} 
+            storage: {{ .Values.webapp.volume2.size | default "200Gi" }} 
