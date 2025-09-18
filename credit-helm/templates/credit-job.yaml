@@ -54,18 +54,15 @@ spec:
             "
             #
             rm -rf /output/*
-            touch /output/test
-            echo "output???"
-            ls -lrth /output
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             conda run -n credit python -m pip install -q -e .
             git pull -q
-            git checkout djgagne
+            #git checkout djgagne
             cd applications
             echo "GFS INIT!!!!"
-            pwd
-            echo "output0"
-            ls -a /output
+            #pwd
+            #echo "output0"
+            #ls -a /output
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             echo "output1"
@@ -83,8 +80,6 @@ spec:
                 sys.exit(1)
             "
             conda install -n credit cftime
-            echo "output2"
-            ls -a /output
             echo "output3"
             ls -a /output/gfs_init_20250702_0000.zarr
             ls -a /output
