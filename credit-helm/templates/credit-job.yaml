@@ -53,15 +53,15 @@ spec:
             echo conda contents
             ls /opt/conda/envs/credit/lib/python3.11/site-packages | grep netCDF4
             ls -lrth /opt/conda/envs/credit
-            sudo chown -R 1000:1000 /opt/conda/envs/credit
+            #sudo chown -R 1000:1000 /opt/conda/envs/credit
             #chown -R 1000:1000 /opt/conda/envs/credit
             ls -lrth /opt/conda/envs/credit
-            conda install -y -n credit -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" --user
+            #conda install -y -n credit -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" --user
             conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
             echo "GFS INIT!!!!"
             #LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             #conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            conda install -n credit cftime
+            #conda install -n credit cftime
             echo "output3"
             ls -a /output
             cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
