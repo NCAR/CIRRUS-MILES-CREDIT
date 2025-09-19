@@ -35,73 +35,44 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            touch /output/foo.txt
-            rm -rf /checkpoint/*
+            #rm -rf /checkpoint/*
+            echo uhhhhhh
             checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
             [ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
             echo "scott's dir"
             ls /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final
-            echo "checkpoint contents:"
-            ls /checkpoint
-            cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
-            cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
-            echo "checkpoint2"
-            ls /checkpoint
-            conda run -n credit LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH python -c "
-            import xarray as xr
-            dataset = xr.open_dataset('/glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc')
-            print(dataset)
-            "
-            #
-            rm -rf /output/*
+            export PATH=/home/ubuntu/.local/bin:$PATH
+            echo $PATH
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             conda run -n credit python -m pip install -q -e .
             git pull -q
             #git checkout djgagne
             cd applications
+            pip uninstall netCDF4
+            #conda install -n credit -c conda-forge netcdf4
+            echo conda contents
+            ls /opt/conda/envs/credit/lib/python3.11/site-packages | grep netCDF4
+            ls -lrth /opt/conda/envs/credit
+            sudo chown -R 1000:1000 /opt/conda/envs/credit
+            #chown -R 1000:1000 /opt/conda/envs/credit
+            ls -lrth /opt/conda/envs/credit
+            conda install -y -n credit -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" --user
+            conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
             echo "GFS INIT!!!!"
-            #pwd
-            #echo "output0"
-            #ls -a /output
-            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            echo "output1"
-            ls -a /output
-            conda run -n credit python -c "
-            import sys, xarray as xr
-            try:
-                store = '/output/gfs_init_20250702_0000.zarr'
-                ds = xr.open_zarr(store, consolidated=False)
-                ds.to_zarr(store, consolidated=True, mode='a')
-                xr.open_zarr(store, consolidated=True)  # Validation
-                print('✅ .zmetadata written and valid')
-            except Exception as e:
-                print('❌ Failed to consolidate metadata:', e)
-                sys.exit(1)
-            "
+            #LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
+            #conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             conda install -n credit cftime
             echo "output3"
-            ls -a /output/gfs_init_20250702_0000.zarr
             ls -a /output
-            find /output -name *zmetadata*
             cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
             #chmod -R 777 /output
             mkdir -p /output/wxformer_1h_gfs
             #kchmod -R 777 /output/wxformer_1h_gfs
             echo "ROLLOUT REALTIME"
-            conda run -n credit conda install netcdf-c
-            conda run -n credit ncdump -h /checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
+            #conda run -n credit conda install netcdf-c
+            #conda run -n credit ncdump -h /checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
             ls -lrth /checkpoint
             touch /checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
-            conda run -n credit python -c "
-            import xarray as xr
-            dataset = xr.open_dataset('/checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc')
-            print(dataset)
-            "
-            #conda run -n credit conda list zarr
-            #sed -i "488a\    print('save_loc ' + save_loc)" rollout_realtime.py
-            #sed -i "167a\                    print('self.dyn_forcing_files!')" /workspace/miles-credit/credit/datasets/realtime_predict.py
-            #sed -i "168a\                    print(self.dyn_forcing_files)" /workspace/miles-credit/credit/datasets/realtime_predict.py
             sed -i "151a\        print('FILENAME!' + filename)" /workspace/miles-credit/credit/data.py
             LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml

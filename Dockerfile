@@ -1,6 +1,7 @@
 #FROM nvidia/cuda:12.2.0-base-ubuntu22.04
 #FROM nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04
 FROM nvidia/cuda:13.0.1-base-ubuntu24.04
+#USER 1000
 #RUN useradd -u 1000 -m credit
 #USER credit
 #USER root
@@ -20,6 +21,8 @@ RUN apt-get update && apt-get install -y \
 RUN wget https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_VERSION}/Miniforge3-Linux-x86_64.sh -O /tmp/miniforge.sh && \
     bash /tmp/miniforge.sh -b -p ${CONDA_DIR} && \
     rm /tmp/miniforge.sh
+
+USER 1000
 
 # Create Conda environment with Python + pysteps + build tools
 RUN conda create -n credit python=3.11 -c conda-forge -y && \
@@ -61,6 +64,6 @@ RUN conda init bash && \
 
 #RUN useradd -u 1010 -m app
 RUN chmod -R 777 /workspace
-USER 1000
+#USER 1000
 
 #CMD ["tail", "-f", "/dev/null"]
