@@ -22,7 +22,7 @@ RUN wget https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_
     bash /tmp/miniforge.sh -b -p ${CONDA_DIR} && \
     rm /tmp/miniforge.sh
 
-USER 1000
+#USER 1000
 
 # Create Conda environment with Python + pysteps + build tools
 RUN conda create -n credit python=3.11 -c conda-forge -y && \
@@ -49,10 +49,20 @@ WORKDIR /workspace/miles-credit
 RUN pip install -e .
 
 # GPU test script
-RUN echo '#!/bin/bash\n' \
-         'echo "Testing GPU availability..."\n' \
-         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
-         > /usr/local/bin/gpu-test && chmod +x /usr/local/bin/gpu-test
+#RUN echo '#!/bin/bash\n' \
+#         'echo "Testing GPU availability..."\n' \
+#         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
+#         > /usr/local/bin/gpu-test && chmod +x /usr/local/bin/gpu-test
+# Still root here
+RUN cat <<'EOF' > /usr/local/bin/gpu-test \
+&& chmod +x /usr/local/bin/gpu-test
+#!/bin/bash
+echo "Testing GPU availability..."
+conda run -n credit python -c "import torch; print('CUDA available?', torch.cuda.is_available())"
+EOF
+RUN /usr/local/bin/gpu-test
+
+
 
 CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
 
@@ -64,6 +74,6 @@ RUN conda init bash && \
 
 #RUN useradd -u 1010 -m app
 RUN chmod -R 777 /workspace
-#USER 1000
+USER 1000
 
 #CMD ["tail", "-f", "/dev/null"]
