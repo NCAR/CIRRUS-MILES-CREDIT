@@ -26,7 +26,7 @@ webapp:
     securityContext:
       runAsGroup: 1000
   container: 
-    image: docker.io/sgpearse/cirrustest:1.7
+    image: docker.io/sgpearse/cirrustest:1.8
     port: 8080
     requests: 
       memory: 24Gi
