@@ -25,11 +25,16 @@ webapp:
     size: 100Gi
     securityContext:
       runAsGroup: 1000
+  extraVolumes:
+    name: dshm
+    emptyDir:
+      medium: Memory
+      sizeLimit: 128Gi
   container: 
     image: docker.io/sgpearse/cirrustest:1.8
     port: 8080
     requests: 
-      memory: 24Gi
+      memory: 128Gi
       cpu: 2
     limits: 
       memory: 128Gi
