@@ -47,6 +47,9 @@ spec:
         args:
           - |
             #rm -rf /checkpoint/*
+            ulimit -l $(ulimit -H -l)
+            echo "import torch; print('CUDA available?', torch.cuda.is_available())" > /workspace/test.py
+            conda run -n credit python /workspace/test.py
             echo shmem
             df -h /dev/shm
             echo cpu instruction support
@@ -58,13 +61,10 @@ spec:
             export PATH=/home/ubuntu/.local/bin:$PATH
             echo $PATH
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-            #conda run -n credit python -m pip install -q -e .
             git pull -q
-            conda run -n credit python -m pip install -e .
+            conda run -n credit python -m pip install -q -e .
             #git checkout djgagne
             cd applications
-            #pip uninstall netCDF4
-            #conda install -n credit -c conda-forge netcdf4
             echo conda contents
             ls /opt/conda/envs/credit/lib/python3.11/site-packages | grep netCDF4
             ls -lrth /opt/conda/envs/credit
@@ -74,7 +74,7 @@ spec:
             #conda install -y -n credit -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" --user
             conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
             echo "GFS INIT!!!!"
-            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
+            ulimit -l unlimited; LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
             #conda install -n credit cftime
             echo "output3"
