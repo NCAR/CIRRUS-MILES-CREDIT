@@ -48,8 +48,8 @@ SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
 #RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # Required by gfs_init.py, and possibly other routines as well
-# Why didn't this install with conda on line 22?
-RUN conda run -n credit pip install xesmf esmpy
+#RUN conda run -n credit pip install xesmf esmpy
+RUN conda run -n credit pip install xesmf
 
 # GPU test script
 #RUN echo '#!/bin/bash\n' \
