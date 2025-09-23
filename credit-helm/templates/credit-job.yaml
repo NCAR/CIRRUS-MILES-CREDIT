@@ -63,7 +63,7 @@ spec:
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             git pull -q
             conda run -n credit python -m pip install -q -e .
-            conda run -n credit python -m pip install xesmf esmpy
+            #conda run -n credit python -m pip install xesmf esmpy
             #git checkout djgagne
             cd applications
             echo conda contents
