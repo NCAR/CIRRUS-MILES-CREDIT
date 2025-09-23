@@ -47,7 +47,6 @@ spec:
         args:
           - |
             #rm -rf /checkpoint/*
-            #ulimit -l $(ulimit -H -l)
             nvidia-smi
             echo "import torch; print('CUDA available?', torch.cuda.is_available())" > /workspace/test.py
             conda run -n credit python /workspace/test.py
