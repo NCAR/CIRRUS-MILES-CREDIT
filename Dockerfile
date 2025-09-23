@@ -1,10 +1,12 @@
 #FROM nvidia/cuda:12.2.0-base-ubuntu22.04
 #FROM nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04
-FROM nvidia/cuda:13.0.1-base-ubuntu24.04
+#FROM nvidia/cuda:13.0.1-base-ubuntu24.04
+FROM nvidia/cuda:12.9.1-base-ubuntu24.04
+
 #USER 1000
 #RUN useradd -u 1000 -m credit
 #USER credit
-USER root
+#USER root
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CONDA_DIR=/opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -22,7 +24,7 @@ RUN wget https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_
     bash /tmp/miniforge.sh -b -p ${CONDA_DIR} && \
     rm /tmp/miniforge.sh
 
-#USER 1000
+USER 1000
 
 # Create Conda environment with Python + pysteps + build tools
 # conda run -n credit conda install -c conda-forge zarr=2.17.2 pysteps pip setuptools wheel esmf esmpy -y && \
@@ -48,8 +50,8 @@ SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
 #RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # Required by gfs_init.py, and possibly other routines as well
-#RUN conda run -n credit pip install xesmf esmpy
 RUN conda run -n credit pip install xesmf
+RUN conda run -n credit conda install -c conda-forge esmpy
 
 # GPU test script
 #RUN echo '#!/bin/bash\n' \
@@ -57,13 +59,13 @@ RUN conda run -n credit pip install xesmf
 #         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
 #         > /usr/local/bin/gpu-test && chmod +x /usr/local/bin/gpu-test
 # Still root here
-RUN cat <<'EOF' > /usr/local/bin/gpu-test \
-&& chmod +x /usr/local/bin/gpu-test
+RUN cat <<'EOF' > /workspace/gpu-test \
+&& chmod +x /workspace/gpu-test
 #!/bin/bash
 echo "Testing GPU availability..."
 conda run -n credit python -c "import torch; print('CUDA available?', torch.cuda.is_available())"
 EOF
-RUN /usr/local/bin/gpu-test
+RUN /workspace/gpu-test
 
 #CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
 
