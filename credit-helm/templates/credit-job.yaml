@@ -76,7 +76,7 @@ spec:
             conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
             echo "GFS INIT!!!!"
             #ulimit -l unlimited; LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
+            conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml > gfsinit.txt
             #conda install -n credit cftime
             echo "output3"
             ls -a /output
@@ -97,7 +97,7 @@ spec:
             echo bar
             ulimit -l unlimited
             ulimit -l
-            #conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml
+            conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml > realtime.txt
             ls -a /output/wxformer_1h_gfs
             ls -a /output/wxformer_1h_gfs/finetune_final
 #
