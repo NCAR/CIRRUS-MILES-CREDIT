@@ -52,31 +52,25 @@ spec:
             conda run -n credit python /workspace/test.py
             echo shmem
             df -h /dev/shm
-            echo cpu instruction support
-            cat /proc/cpuinfo |grep flags | head -1
+            #echo cpu instruction support
+            #cat /proc/cpuinfo |grep flags | head -1
             checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
             [ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
-            echo "scott's dir"
-            ls /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final
             export PATH=/home/ubuntu/.local/bin:$PATH
-            echo $PATH
+            #echo $PATH
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             git pull -q
-            conda run -n credit python -m pip install -q -e .
-            #conda run -n credit python -m pip install xesmf esmpy
+            conda run -n credit python -m pip install -q -e /workspace/miles-credit
+            conda run -n credit python -m pip install xesmf esmpy
             #git checkout djgagne
-            cd applications
+            #cd applications
             echo conda contents
-            ls /opt/conda/envs/credit/lib/python3.11/site-packages | grep netCDF4
-            ls -lrth /opt/conda/envs/credit
-            #sudo chown -R 1000:1000 /opt/conda/envs/credit
-            #chown -R 1000:1000 /opt/conda/envs/credit
-            ls -lrth /opt/conda/envs/credit
+            #ls -lrth /opt/conda/envs/credit
             #conda install -y -n credit -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" --user
-            conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
+            #conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
             echo "GFS INIT!!!!"
             #ulimit -l unlimited; LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
-            conda run -n credit python gfs_init.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml > gfsinit.txt
+            conda run -n credit python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml > gfsinit.txt 2>&1
             #conda install -n credit cftime
             echo "output3"
             ls -a /output
@@ -95,11 +89,10 @@ spec:
             #LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
             #conda run -n credit python rollout_realtime.py
             echo bar
-            ulimit -l unlimited
-            ulimit -l
-            conda run -n credit python rollout_realtime.py -c /workspace/miles-credit/CIRRUS-MILES-CREDIT/model_predict_old.yml > realtime.txt
-            ls -a /output/wxformer_1h_gfs
-            ls -a /output/wxformer_1h_gfs/finetune_final
+            #ulimit -l unlimited
+            #ulimit -l
+            conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
+            ls -a /output
 #
 # copy scalers
             #echo forcing!
