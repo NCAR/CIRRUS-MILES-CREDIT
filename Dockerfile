@@ -24,7 +24,7 @@ RUN wget https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_
     bash /tmp/miniforge.sh -b -p ${CONDA_DIR} && \
     rm /tmp/miniforge.sh
 
-USER 1000
+#USER 1000
 
 # Create Conda environment with Python + pysteps + build tools
 # conda run -n credit conda install -c conda-forge zarr=2.17.2 pysteps pip setuptools wheel esmf esmpy -y && \
