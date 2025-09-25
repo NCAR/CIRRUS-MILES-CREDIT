@@ -55,8 +55,9 @@ RUN echo '#!/bin/bash\n' \
          'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
          > gpu-test
 
-CMD ["/bin/bash", "-c", "/workspace/bin/gpu-test && exec bash"]
-
+SHELL ["/bin/bash", "-c"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "credit"]
+CMD ["/bin/bash", "/workspace/bin/gpu-test && exec bash"]
 # Set credit to the devault conda environment
 #RUN conda init bash && \
 #    echo "conda activate credit" >> ~/.bashrc
