@@ -61,8 +61,11 @@ spec:
             #echo $PATH
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
             git pull -q
-            conda run -n credit python -m pip install -q -e /workspace/miles-credit
-            conda run -n credit python -m pip install xesmf esmpy
+            #conda run -n credit python -m pip install -q -e /workspace/miles-credit
+            #conda run -n credit python -m pip install -q -e /workspace/miles-credit
+            python -m pip install xesmf esmpy
+            python -m pip install xesmf esmpy
+            conda install -c conda-forge esmpy yaml
             #git checkout djgagne
             #cd applications
             echo conda contents
@@ -72,7 +75,8 @@ spec:
             echo "GFS INIT!!!!"
             #ulimit -l unlimited; LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
             #conda run -n credit python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml > gfsinit.txt 2>&1
-            python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml > gfsinit.txt 2>&1
+            python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+            # > gfsinit.txt 2>&1
             #conda install -n credit cftime
             echo "output3"
             ls -a /output
@@ -93,8 +97,9 @@ spec:
             echo bar
             #ulimit -l unlimited
             #ulimit -l
-            #conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
-            python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
+            conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml
+            # > realtime.txt 2>&1
+            #python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
             ls -a /output
 #
 # copy scalers
