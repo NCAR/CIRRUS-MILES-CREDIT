@@ -1,5 +1,5 @@
 apiVersion: batch/v1
-kind: Job
+kind: CronJob
 metadata:
   name: {{ .Values.webapp.name }}-{{ randAlphaNum 5 | lower }}
   namespace: {{ .Release.Namespace }}
@@ -7,12 +7,17 @@ metadata:
     app: {{ .Values.webapp.name }}
     group: {{ .Values.webapp.group }}
 spec:
-  template:
+  schedule: "0 0,6,12,18 * * *"
+  timeZone: "America/Denver"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
     metadata:
       labels:
         app: {{ .Values.webapp.name }}
     spec:
-      restartPolicy: Never
+      restartPolicy: OnFailure
       volumes:
         - name: {{ .Values.webapp.volume1.name }}
           nfs:
@@ -32,9 +37,6 @@ spec:
       runtimeClassName: nvidia
       securityContext:
         fsGroup: 1000
-      #  runAsUser: 1000
-      #  capabilities:
-      #    add: ["IPC_LOCK"]
       containers:
       - name: {{ .Values.webapp.name }}
         image: {{ .Values.webapp.container.image }}
