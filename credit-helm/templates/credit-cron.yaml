@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Values.webapp.name }}-{{ randAlphaNum 5 | lower }}
+  name: {{ .Values.creditcron.name }}-{{ randAlphaNum 5 | lower }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Values.webapp.name }}
@@ -13,142 +13,84 @@ spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
-    metadata:
-      labels:
-        app: {{ .Values.webapp.name }}
     spec:
-      restartPolicy: OnFailure
-      volumes:
-        - name: {{ .Values.webapp.volume1.name }}
-          nfs:
-            server: {{ .Values.webapp.volume1.server }}
-            path: {{ .Values.webapp.volume1.path }}
-            readOnly: {{ .Values.webapp.volume1.readOnly }}
-        - name: {{ .Values.webapp.volume2.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.webapp.volume2.name }}
-        - name: {{ .Values.webapp.volume3.name }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.webapp.volume3.name }}
-        - name: {{ .Values.webapp.extraVolumes.name }}
-          emptyDir:
-            medium: {{ .Values.webapp.extraVolumes.emptyDir.medium }}
-            sizeLimit: {{ .Values.webapp.extraVolumes.emptyDir.sizeLimit }}
-      runtimeClassName: nvidia
-      securityContext:
-        fsGroup: 1000
-      containers:
-      - name: {{ .Values.webapp.name }}
-        image: {{ .Values.webapp.container.image }}
-        securityContext:
-          runAsUser: 1000
-          capabilities:
-            add: ["IPC_LOCK"]
-        imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-        command: ["/bin/bash", "-c"]
-        args:
-          - |
-            #rm -rf /checkpoint/*
-            #rm -rf /output/*
-            conda activate credit
-            nvidia-smi
-            echo shmem
-            df -h /dev/shm
-            #echo cpu instruction support
-            #cat /proc/cpuinfo |grep flags | head -1
-            #checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
-            #[ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
-            cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
-            cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
-            export PATH=/home/ubuntu/.local/bin:$PATH
-            #echo $PATH
-            git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-            git pull -q
-            #conda run -n credit python -m pip install -q -e /workspace/miles-credit
-            #conda run -n credit python -m pip install -q -e /workspace/miles-credit
-            python -m pip install xesmf
-            conda install -c conda-forge esmpy yaml -y
-            #git checkout djgagne
-            #cd applications
-            echo conda contents
-            #ls -lrth /opt/conda/envs/credit
-            conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
-            #conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
-            echo "GFS INIT!!!!"
-            #python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            # > gfsinit.txt 2>&1
-            #conda install -n credit cftime
-            echo "output3"
-            ls -a /output
-            #cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
-            #chmod -R 777 /output
-            mkdir -p /output/wxformer_1h_gfs
-            #sed -i '152c         dataset = xr.open_dataset(filename, engine="zarr")' /workspace/miles-credit/credit/data.py
-            sed -i '150a\    print("filename" + filename)' /workspace/miles-credit/credit/data.py
-            #kchmod -R 777 /output/wxformer_1h_gfs
-            echo "ROLLOUT REALTIME"
-            ls -lrth /checkpoint
-            #touch /checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
-            #conda run -n credit python rollout_realtime.py
-            echo bar
-            #conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml
-            python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            # > realtime.txt 2>&1
-            #python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
-            ls -a /output
-#
-# copy scalers
-            #echo forcing!
-            #ls /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
-            #echo static norm!
-            #ls /glade/campaign/cisl/vast/pearse/static_scalers/gfs_static_norm.nc
-            #echo mean!
-            #ls /glade/campaign/cisl/vast/pearse/static_scalers/mean_1h_1979_2018_16lev_0.25deg.nc
-            #echo std!
-            #ls /glade/campaign/cisl/vast/pearse/static_scalers/std_residual_1h_1979_2018_16lev_0.25deg.nc
-#
-            #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
-            #
-            #
-            #python applications/gfs_init.py
-            #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
-            #bash /usr/local/bin/gpu-test &&
-            #ls /usr/local/bin/gpu-test &&
-            
-        #command: ["/bin/bash", "-c"]
-        #args:
-        #  - |
-        #    echo foo;
-#        command: ["/bin/bash", "-c"]
-#        args:
-#          - |
-#            echo "Starting job...";
-#            export TZ=MST;
-#            RESULT=$(date);
-#            echo "The current date is: $RESULT";
-        #command: ["/bin/bash", "-c"]
-        #args:
-        #  - |
-        #    ls;
-        #    ls /usr/local/bin/gpu-test;
-        #    /usr/local/bin/gpu-test;
-        #args: ["-c", "/usr/local/bin/gpu-test"]
-        tty: true
-        resources:
-          limits:
-            memory: {{ .Values.webapp.container.limits.memory }}
-            cpu: {{ .Values.webapp.container.limits.cpu }}
-            nvidia.com/gpu: "1"
-          requests:
-            memory: {{ .Values.webapp.container.requests.memory }}
-            cpu: {{ .Values.webapp.container.requests.cpu }}
-            nvidia.com/gpu: "1"
-        volumeMounts:
-        - mountPath: /glade/campaign
-          name: {{ .Values.webapp.volume1.name }}
-        - mountPath: /output
-          name: {{ .Values.webapp.volume2.name }}
-        - mountPath: /checkpoint
-          name: {{ .Values.webapp.volume3.name }}
-        - mountPath: /dev/shm
-          name: {{ .Values.webapp.extraVolumes.name }}
+      template:
+        metadata:
+          labels:
+            app: {{ .Values.creditcron.name }}
+        spec:
+          restartPolicy: OnFailure
+          volumes:
+            - name: {{ .Values.webapp.volume1.name }}
+              nfs:
+                server: {{ .Values.webapp.volume1.server }}
+                path: {{ .Values.webapp.volume1.path }}
+                readOnly: {{ .Values.webapp.volume1.readOnly }}
+            - name: {{ .Values.webapp.volume2.name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.webapp.volume2.name }}
+            - name: {{ .Values.webapp.volume3.name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.webapp.volume3.name }}
+            - name: {{ .Values.webapp.extraVolumes.name }}
+              emptyDir:
+                medium: {{ .Values.webapp.extraVolumes.emptyDir.medium }}
+                sizeLimit: {{ .Values.webapp.extraVolumes.emptyDir.sizeLimit }}
+          runtimeClassName: nvidia
+          securityContext:
+            fsGroup: 1000
+          containers:
+          - name: {{ .Values.webapp.name }}
+            image: {{ .Values.webapp.container.image }}
+            securityContext:
+              runAsUser: 1000
+              capabilities:
+                add: ["IPC_LOCK"]
+            imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+            command: ["/bin/bash", "-c"]
+            args:
+              - |
+                #rm -rf /checkpoint/*
+                #rm -rf /output/*
+                conda activate credit
+                nvidia-smi
+                echo shmem
+                df -h /dev/shm
+                cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
+                cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
+                export PATH=/home/ubuntu/.local/bin:$PATH
+                git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+                git pull -q
+                python -m pip install xesmf
+                conda install -c conda-forge esmpy yaml -y
+                echo conda contents
+                conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
+                echo "GFS INIT!!!!"
+                echo "output3"
+                ls -a /output
+                mkdir -p /output/wxformer_1h_gfs
+                sed -i '150a\    print("filename" + filename)' /workspace/miles-credit/credit/data.py
+                echo "ROLLOUT REALTIME"
+                ls -lrth /checkpoint
+                echo bar
+                python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+                ls -a /output
+            tty: true
+            resources:
+              limits:
+                memory: {{ .Values.webapp.container.limits.memory }}
+                cpu: {{ .Values.webapp.container.limits.cpu }}
+                nvidia.com/gpu: "1"
+              requests:
+                memory: {{ .Values.webapp.container.requests.memory }}
+                cpu: {{ .Values.webapp.container.requests.cpu }}
+                nvidia.com/gpu: "1"
+            volumeMounts:
+            - mountPath: /glade/campaign
+              name: {{ .Values.webapp.volume1.name }}
+            - mountPath: /output
+              name: {{ .Values.webapp.volume2.name }}
+            - mountPath: /checkpoint
+              name: {{ .Values.webapp.volume3.name }}
+            - mountPath: /dev/shm
+              name: {{ .Values.webapp.extraVolumes.name }}
