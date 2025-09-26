@@ -114,7 +114,8 @@ model:
 
 loss:
     use_latitude_weights: True  
-    latitude_weights: "/glade/u/home/wchapman/MLWPS/DataLoader/LSM_static_variables_ERA5_zhght.nc"
+    #latitude_weights: "/glade/u/home/wchapman/MLWPS/DataLoader/LSM_static_variables_ERA5_zhght.nc"
+    latitude_weights: "/glade/campaign/cisl/vast/pearse/DataLoader/LSM_static_variables_ERA5_zhght.nc"
     
 
 predict:
@@ -162,7 +163,8 @@ predict:
    #initial_condition_path: "/glade/derecho/scratch/pearse/gfs_init/"
     initial_condition_path: "/output"
     static_fields: "/glade/campaign/cisl/aiml/credit/static_scalers/gfs_static_whole.nc"
-    metadata: '/glade/u/home/dgagne/miles-credit/credit/metadata/era5.yaml'
+    #metadata: '/glade/u/home/dgagne/miles-credit/credit/metadata/era5.yaml'
+    metadata: '/glade/campaign/cisl/vast/pearse/metadata/era5.yaml'
     #save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
     #save_forecast: '/output/wxformer_1h_gfs'
     save_forecast: '/output'
