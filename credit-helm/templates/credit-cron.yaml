@@ -1,14 +1,16 @@
+{{- range $name, $cron := .Values.cronjobs }}
+{{- if $cron.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Values.creditcron.name }}-{{ randAlphaNum 5 | lower }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ $cron.name }}-{{ randAlphaNum 5 | lower }}
+  namespace: {{ $.Release.Namespace }}
   labels:
-    app: {{ .Values.webapp.name }}
-    group: {{ .Values.webapp.group }}
+    app: {{ $.Values.webapp.name }}
+    group: {{ $.Values.webapp.group }}
 spec:
-  schedule: "0 0,6,12,18 * * *"
-  timeZone: "America/Denver"
+  schedule: {{ $cron.schedule | quote }}
+  timeZone: {{ $cron.timeZone | quote }}
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
@@ -17,80 +19,59 @@ spec:
       template:
         metadata:
           labels:
-            app: {{ .Values.creditcron.name }}
+            app: {{ $cron.name }}
         spec:
           restartPolicy: OnFailure
-          volumes:
-            - name: {{ .Values.webapp.volume1.name }}
-              nfs:
-                server: {{ .Values.webapp.volume1.server }}
-                path: {{ .Values.webapp.volume1.path }}
-                readOnly: {{ .Values.webapp.volume1.readOnly }}
-            - name: {{ .Values.webapp.volume2.name }}
-              persistentVolumeClaim:
-                claimName: {{ .Values.webapp.volume2.name }}
-            - name: {{ .Values.webapp.volume3.name }}
-              persistentVolumeClaim:
-                claimName: {{ .Values.webapp.volume3.name }}
-            - name: {{ .Values.webapp.extraVolumes.name }}
-              emptyDir:
-                medium: {{ .Values.webapp.extraVolumes.emptyDir.medium }}
-                sizeLimit: {{ .Values.webapp.extraVolumes.emptyDir.sizeLimit }}
           runtimeClassName: nvidia
           securityContext:
             fsGroup: 1000
+          volumes:
+            - name: {{ $.Values.webapp.volume1.name }}
+              nfs:
+                server: {{ $.Values.webapp.volume1.server }}
+                path: {{ $.Values.webapp.volume1.path }}
+                readOnly: {{ $.Values.webapp.volume1.readOnly }}
+            - name: {{ $.Values.webapp.volume2.name }}
+              persistentVolumeClaim:
+                claimName: {{ $.Values.webapp.volume2.name }}
+            - name: {{ $.Values.webapp.volume3.name }}
+              persistentVolumeClaim:
+                claimName: {{ $.Values.webapp.volume3.name }}
+            - name: {{ $.Values.webapp.extraVolumes.name }}
+              emptyDir:
+                medium: {{ $.Values.webapp.extraVolumes.emptyDir.medium }}
+                sizeLimit: {{ $.Values.webapp.extraVolumes.emptyDir.sizeLimit }}
           containers:
-          - name: {{ .Values.webapp.name }}
-            image: {{ .Values.webapp.container.image }}
+          - name: {{ $cron.name }}
+            image: {{ $.Values.webapp.container.image }}
+            imagePullPolicy: {{ $.Values.webapp.imagePullPolicy }}
             securityContext:
               runAsUser: 1000
               capabilities:
                 add: ["IPC_LOCK"]
-            imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
-            command: ["/bin/bash", "-c"]
+            command: {{ toJson $cron.command }}
             args:
               - |
-                #rm -rf /checkpoint/*
-                #rm -rf /output/*
-                conda activate credit
-                nvidia-smi
-                echo shmem
-                df -h /dev/shm
-                cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
-                cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
-                export PATH=/home/ubuntu/.local/bin:$PATH
-                git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-                git pull -q
-                python -m pip install xesmf
-                conda install -c conda-forge esmpy yaml -y
-                echo conda contents
-                conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
-                echo "GFS INIT!!!!"
-                echo "output3"
-                ls -a /output
-                mkdir -p /output/wxformer_1h_gfs
-                sed -i '150a\    print("filename" + filename)' /workspace/miles-credit/credit/data.py
-                echo "ROLLOUT REALTIME"
-                ls -lrth /checkpoint
-                echo bar
-                python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
-                ls -a /output
+                {{ $cron.args | nindent 16 }}
             tty: true
             resources:
               limits:
-                memory: {{ .Values.webapp.container.limits.memory }}
-                cpu: {{ .Values.webapp.container.limits.cpu }}
+                memory: {{ $.Values.webapp.container.limits.memory }}
+                cpu: {{ $.Values.webapp.container.limits.cpu }}
                 nvidia.com/gpu: "1"
               requests:
-                memory: {{ .Values.webapp.container.requests.memory }}
-                cpu: {{ .Values.webapp.container.requests.cpu }}
+                memory: {{ $.Values.webapp.container.requests.memory }}
+                cpu: {{ $.Values.webapp.container.requests.cpu }}
                 nvidia.com/gpu: "1"
             volumeMounts:
             - mountPath: /glade/campaign
-              name: {{ .Values.webapp.volume1.name }}
+              name: {{ $.Values.webapp.volume1.name }}
             - mountPath: /output
-              name: {{ .Values.webapp.volume2.name }}
+              name: {{ $.Values.webapp.volume2.name }}
             - mountPath: /checkpoint
-              name: {{ .Values.webapp.volume3.name }}
+              name: {{ $.Values.webapp.volume3.name }}
             - mountPath: /dev/shm
-              name: {{ .Values.webapp.extraVolumes.name }}
+              name: {{ $.Values.webapp.extraVolumes.name }}
+---
+{{- end }}
+{{- end }}

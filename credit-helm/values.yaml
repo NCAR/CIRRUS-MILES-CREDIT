@@ -39,3 +39,30 @@ webapp:
     limits: 
       memory: 128Gi
       cpu: 8
+
+jobs:
+  debug:
+    enabled: true
+    name: cirrustest-debug
+    command: ["/bin/bash", "-c"]
+    args: |
+      conda activate credit
+      git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+      echo "chmod!"
+      chmod 777 ./CIRRUS-MILES-CREDIT/credit.sh
+      ./CIRRUS-MILES-CREDIT/credit.sh
+
+cronjobs:
+  credit:
+    enabled: true
+    name: cirrustest-cron
+    #schedule: "0 0,6,12,18 * * *"
+    schedule: "0 * * * *"
+    timeZone: "America/Denver"
+    command: ["/bin/bash", "-c"]
+    args: |
+      conda activate credit
+      git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+      echo "chmod!"
+      chmod 777 ./CIRRUS-MILES-CREDIT/credit.sh
+      ./CIRRUS-MILES-CREDIT/credit.sh
