@@ -1,5 +1,4 @@
 #! /bin/bash
-conda activate credit
 nvidia-smi
 echo shmem
 df -h /dev/shm
