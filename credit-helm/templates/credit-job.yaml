@@ -46,54 +46,58 @@ spec:
         command: ["/bin/bash", "-c"]
         args:
           - |
-            #rm -rf /checkpoint/*
-            #rm -rf /output/*
             conda activate credit
-            nvidia-smi
-            echo shmem
-            df -h /dev/shm
-            #echo cpu instruction support
-            #cat /proc/cpuinfo |grep flags | head -1
-            #checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
-            #[ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
-            cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
-            cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
-            export PATH=/home/ubuntu/.local/bin:$PATH
-            #echo $PATH
             git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-            git pull -q
-            #conda run -n credit python -m pip install -q -e /workspace/miles-credit
-            #conda run -n credit python -m pip install -q -e /workspace/miles-credit
-            python -m pip install xesmf
-            conda install -c conda-forge esmpy yaml -y
-            #git checkout djgagne
-            #cd applications
-            echo conda contents
-            #ls -lrth /opt/conda/envs/credit
-            conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
-            #conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
-            echo "GFS INIT!!!!"
-            #python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            # > gfsinit.txt 2>&1
-            #conda install -n credit cftime
-            echo "output3"
-            ls -a /output
-            #cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
-            #chmod -R 777 /output
-            mkdir -p /output/wxformer_1h_gfs
-            #sed -i '152c         dataset = xr.open_dataset(filename, engine="zarr")' /workspace/miles-credit/credit/data.py
-            sed -i '150a\    print("filename" + filename)' /workspace/miles-credit/credit/data.py
-            #kchmod -R 777 /output/wxformer_1h_gfs
-            echo "ROLLOUT REALTIME"
-            ls -lrth /checkpoint
-            #touch /checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
-            #conda run -n credit python rollout_realtime.py
-            echo bar
-            #conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml
-            python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
-            # > realtime.txt 2>&1
-            #python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
-            ls -a /output
+            ./CIRRUS-MILES-CREDIT/credit.sh
+          #- |
+          #  #rm -rf /checkpoint/*
+          #  #rm -rf /output/*
+          #  conda activate credit
+          #  nvidia-smi
+          #  echo shmem
+          #  df -h /dev/shm
+          #  #echo cpu instruction support
+          #  #cat /proc/cpuinfo |grep flags | head -1
+          #  #checkpointDir=/glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final \
+          #  #[ -z "$(find $checkpointDir -mindepth 1 -print -quit)" ] && cp -r "$checkpointDir" /checkpoint
+          #  cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
+          #  cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
+          #  export PATH=/home/ubuntu/.local/bin:$PATH
+          #  #echo $PATH
+          #  git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+          #  git pull -q
+          #  #conda run -n credit python -m pip install -q -e /workspace/miles-credit
+          #  #conda run -n credit python -m pip install -q -e /workspace/miles-credit
+          #  python -m pip install xesmf
+          #  conda install -c conda-forge esmpy yaml -y
+          #  #git checkout djgagne
+          #  #cd applications
+          #  echo conda contents
+          #  #ls -lrth /opt/conda/envs/credit
+          #  conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
+          #  #conda list -n credit | egrep "netCDF4|libnetcdf|hdf5|numpy|ucx"
+          #  echo "GFS INIT!!!!"
+          #  #python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+          #  # > gfsinit.txt 2>&1
+          #  #conda install -n credit cftime
+          #  echo "output3"
+          #  ls -a /output
+          #  #cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
+          #  #chmod -R 777 /output
+          #  mkdir -p /output/wxformer_1h_gfs
+          #  #sed -i '152c         dataset = xr.open_dataset(filename, engine="zarr")' /workspace/miles-credit/credit/data.py
+          #  sed -i '150a\    print("filename" + filename)' /workspace/miles-credit/credit/data.py
+          #  #kchmod -R 777 /output/wxformer_1h_gfs
+          #  echo "ROLLOUT REALTIME"
+          #  ls -lrth /checkpoint
+          #  #touch /checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc
+          #  #conda run -n credit python rollout_realtime.py
+          #  echo bar
+          #  #conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml
+          #  python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+          #  # > realtime.txt 2>&1
+          #  #python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/miles-credit/model_predict_old.yml > realtime.txt 2>&1
+          #  ls -a /output
 #
 # copy scalers
             #echo forcing!
