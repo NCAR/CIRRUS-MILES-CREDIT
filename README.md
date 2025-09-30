@@ -1,3 +1,1 @@
-Repository for hosting configuration for miles-credit on CIRRUS.
-
-test
+Repository for running miles-credit on CIRRUS.

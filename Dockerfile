@@ -1,12 +1,5 @@
-#FROM nvidia/cuda:12.2.0-base-ubuntu22.04
-#FROM nvidia/cuda:13.0.1-cudnn-devel-ubuntu24.04
-#FROM nvidia/cuda:13.0.1-base-ubuntu24.04
 FROM nvidia/cuda:12.9.1-base-ubuntu24.04
 
-#USER 1000
-#RUN useradd -u 1000 -m credit
-#USER credit
-#USER root
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CONDA_DIR=/opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -24,60 +17,46 @@ RUN wget https://github.com/conda-forge/miniforge/releases/download/${MINIFORGE_
     bash /tmp/miniforge.sh -b -p ${CONDA_DIR} && \
     rm /tmp/miniforge.sh
 
-#USER 1000
+RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh" >> /etc/bash.bashrc
 
 # Create Conda environment with Python + pysteps + build tools
-# conda run -n credit conda install -c conda-forge zarr=2.17.2 pysteps pip setuptools wheel esmf esmpy -y && \
-#conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy cftime "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" -y && \
-#RUN conda create -n credit python=3.11 -c conda-forge -y && \
-#    conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy cftime "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4" -y && \
-#    conda clean -afy
-RUN conda create -n credit python=3.11 -c conda-forge -y
+RUN conda create -n credit python=3.11 -c conda-forge -y && \
+    conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy -y && \
+    conda clean -afy
 
 RUN conda init bash
 
-# Clone and install miles-credit
-#RUN pip install --no-cache-dir .
-WORKDIR /workspace
-RUN git clone https://github.com/NCAR/miles-credit.git
-WORKDIR /workspace/miles-credit
-RUN conda run -n credit pip install -e .
-
-# Activate the conda environment.  SHELL will set the environment for the RUN command
-SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
-
 # Install PyTorch with CUDA 12.1 support
-#RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN conda run -n credit python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # Required by gfs_init.py, and possibly other routines as well
-RUN conda run -n credit pip install xesmf
-RUN conda run -n credit conda install -c conda-forge esmpy
+#RUN pip install xesmf esmpy
+
+RUN mkdir -p /workspace/miles-credit && \
+    chmod -R 777 /workspace /opt/conda
+
+USER 1000
+ENV HOME=/workspace
+
+# Clone and install miles-credit
+RUN git clone https://github.com/NCAR/miles-credit.git /workspace/miles-credit && \
+    cd /workspace/miles-credit && \
+    pip install --no-cache-dir . && \
+    pip install -e .
+
+WORKDIR /workspace
 
 # GPU test script
-#RUN echo '#!/bin/bash\n' \
-#         'echo "Testing GPU availability..."\n' \
-#         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
-#         > /usr/local/bin/gpu-test && chmod +x /usr/local/bin/gpu-test
-# Still root here
-RUN cat <<'EOF' > /workspace/gpu-test \
-&& chmod +x /workspace/gpu-test
-#!/bin/bash
-echo "Testing GPU availability..."
-conda run -n credit python -c "import torch; print('CUDA available?', torch.cuda.is_available())"
-EOF
-RUN /workspace/gpu-test
+RUN echo '#!/bin/bash\n' \
+         'echo "Testing GPU availability..."\n' \
+         'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
+         > gpu-test
 
-#CMD ["/bin/bash", "-c", "/usr/local/bin/gpu-test && exec bash"]
-
-#COPY model_predict_gfs.yml .
+SHELL ["/bin/bash", "-c"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "credit"]
+CMD ["/bin/bash", "/workspace/bin/gpu-test && exec bash"]
 
 # Set credit to the devault conda environment
-RUN conda init bash && \
-    echo "conda activate credit" >> ~/.bashrc
+#RUN conda init bash && \
+#    echo "conda activate credit" >> ~/.bashrc
 
-#RUN useradd -u 1010 -m app
-RUN chmod -R 777 /workspace
-#USER 1000
-#USER root
-
-#CMD ["tail", "-f", "/dev/null"]

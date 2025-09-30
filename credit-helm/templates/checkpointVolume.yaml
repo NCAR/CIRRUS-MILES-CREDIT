@@ -6,9 +6,7 @@ metadata:
 spec:
     accessModes:
         - ReadWriteMany
-        #- ReadWriteOnce
     storageClassName: cephfs
-    #storageClassName: ceph-kubepv
     resources:
         requests:
             storage: {{ .Values.webapp.volume3.size | default "50Gi" }} 

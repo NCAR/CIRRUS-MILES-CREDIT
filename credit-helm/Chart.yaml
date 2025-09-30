@@ -1,6 +1,6 @@
 apiVersion: v2
 name: CIRRUSTest
-description: A Helm chart for Nick to deploy test instances to Kubernetes
+description: A Helm chart for deploying miles-credit on CIRRUS
 
 # A chart can be either an 'application' or a 'library' chart.
 #
