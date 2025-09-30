@@ -72,6 +72,5 @@ spec:
               name: {{ $.Values.webapp.volume3.name }}
             - mountPath: /dev/shm
               name: {{ $.Values.webapp.extraVolumes.name }}
----
 {{- end }}
 {{- end }}
