@@ -5,8 +5,8 @@ df -h /dev/shm
 cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
 cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
 export PATH=/home/ubuntu/.local/bin:$PATH
-git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-git pull -q
+#git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+#git pull -q
 python -m pip install xesmf
 conda install -c conda-forge esmpy yaml -y
 echo conda contents
