@@ -49,6 +49,7 @@ jobs:
       conda activate credit
       cd CIRRUS-MILES-CREDIT
       git pull
+      git branch
       chmod 777 ./credit.sh
       ./credit.sh
       #./CIRRUS-MILES-CREDIT/credit.sh
