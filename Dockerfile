@@ -21,13 +21,17 @@ RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh" >> /etc/bash.bashrc
 
 # Create Conda environment with Python + pysteps + build tools
 RUN conda create -n credit python=3.11 -c conda-forge -y && \
-    conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy -y && \
+    conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy yaml -y && \
     conda clean -afy
 
 RUN conda init bash
 
 # Install PyTorch with CUDA 12.1 support
-RUN conda run -n credit python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN conda run -n credit python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
+    conda run -n credit python -m pip install xesmf
+
+#conda run -n credit python -m pip install xesmf
+#conda install -c conda-forge esmpy yaml -y
 
 # Required by gfs_init.py, and possibly other routines as well
 #RUN pip install xesmf esmpy
@@ -43,6 +47,8 @@ RUN git clone https://github.com/NCAR/miles-credit.git /workspace/miles-credit &
     cd /workspace/miles-credit && \
     pip install --no-cache-dir . && \
     pip install -e .
+
+RUN git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git /workspace/CIRRUS-MILES-CREDIT
 
 WORKDIR /workspace
 

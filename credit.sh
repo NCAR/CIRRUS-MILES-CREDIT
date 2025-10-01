@@ -7,8 +7,8 @@ cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_20
 export PATH=/home/ubuntu/.local/bin:$PATH
 #git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
 #git pull -q
-python -m pip install xesmf
-conda install -c conda-forge esmpy yaml -y
+#python -m pip install xesmf
+#conda install -c conda-forge esmpy yaml -y
 echo conda contents
 conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
 echo "GFS INIT!!!!"
