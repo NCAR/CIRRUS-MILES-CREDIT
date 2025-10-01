@@ -47,6 +47,8 @@ jobs:
     command: ["/bin/bash", "-c"]
     args: |
       #conda activate credit
+      pwd
+      ls
       cd /workspace/CIRRUS-MILES-CREDIT
       git pull
       git branch
