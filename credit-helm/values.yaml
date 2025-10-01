@@ -46,7 +46,7 @@ jobs:
     name: cirrustest-debug
     command: ["/bin/bash", "-c"]
     args: |
-      conda activate credit
+      #conda activate credit
       cd CIRRUS-MILES-CREDIT
       git pull
       git branch
