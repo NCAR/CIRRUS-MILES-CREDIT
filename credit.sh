@@ -1,4 +1,5 @@
 #! /bin/bash
+conda activate credit
 nvidia-smi
 echo shmem
 df -h /dev/shm
@@ -12,9 +13,9 @@ export PATH=/home/ubuntu/.local/bin:$PATH
 #echo conda contents
 #conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
 echo "GFS INIT!!!!"
-python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+conda run -n credit python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 mkdir -p /output/wxformer_1h_gfs
 echo "ROLLOUT REALTIME"
 ls -lrth /checkpoint
-python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+conta run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 ls -a /output
