@@ -31,7 +31,7 @@ webapp:
       medium: Memory
       sizeLimit: 128Gi
   container: 
-    image: docker.io/sgpearse/cirrustest:1.3.11
+    image: docker.io/sgpearse/cirrustest:1.3.12
     port: 8080
     requests: 
       memory: 128Gi
@@ -61,7 +61,7 @@ jobs:
 
 cronjobs:
   credit:
-    enabled: true
+    enabled: false
     name: cirrustest-cron
     #schedule: "0 0,6,12,18 * * *"
     schedule: "0 * * * *"
