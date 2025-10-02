@@ -9,8 +9,8 @@ export PATH=/home/ubuntu/.local/bin:$PATH
 #git pull -q
 #python -m pip install xesmf
 #conda install -c conda-forge esmpy yaml -y
-echo conda contents
-conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
+#echo conda contents
+#conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
 echo "GFS INIT!!!!"
 python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 mkdir -p /output/wxformer_1h_gfs
