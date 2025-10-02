@@ -23,13 +23,15 @@ RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh" >> /etc/bash.bashrc
 # Create Conda environment with Python + pysteps + build tools
 RUN conda create -n credit python=3.11 -c conda-forge -y && \
     conda run -n credit conda install -c conda-forge pysteps pip setuptools wheel esmf esmpy yaml -y && \
-    conda clean -afy
+    conda clean -afy && \
+    conda run -n credit python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
+    conda run -n credit python -m pip install xesmf
 
 RUN conda init bash
 
 # Install PyTorch with CUDA support
-RUN conda run -n credit python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
-    conda run -n credit python -m pip install xesmf
+#RUN conda run -n credit python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
+#    conda run -n credit python -m pip install xesmf
 
 #conda run -n credit python -m pip install xesmf
 #conda install -c conda-forge esmpy yaml -y
@@ -49,8 +51,8 @@ ENV HOME=/workspace
 # Clone and install miles-credit
 RUN git clone https://github.com/NCAR/miles-credit.git /workspace/miles-credit && \
     cd /workspace/miles-credit && \
-    pip install --no-cache-dir . && \
-    pip install -e .
+    conda run -n credit pip install --no-cache-dir . && \
+    conda run -n credit pip install -e .
 
 RUN git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git /workspace/CIRRUS-MILES-CREDIT
 
