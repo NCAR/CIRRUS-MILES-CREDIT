@@ -64,9 +64,10 @@ RUN echo '#!/bin/bash\n' \
          'conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"' \
          > gpu-test
 
+SHELL ["conda", "run", "-n", "credit", "/bin/bash", "-c"]
 # Make bash the entrypoint (so .bashrc is read)
-ENTRYPOINT ["/bin/bash", "-l", "-c"]
-CMD ["-l"]
+#ENTRYPOINT ["/bin/bash", "-l", "-c"]
+#CMD ["-l"]
 
 #SHELL ["/bin/bash", "-c"]
 #ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "credit"]
