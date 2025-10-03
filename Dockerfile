@@ -45,14 +45,15 @@ RUN mkdir -p /workspace/miles-credit && \
 # Ensure conda activates credit automatically for all bash shells
 RUN echo "conda activate credit" >> /etc/bash.bashrc
 
-USER 1000
-ENV HOME=/workspace
-
 # Clone and install miles-credit
 RUN git clone https://github.com/NCAR/miles-credit.git /workspace/miles-credit && \
     cd /workspace/miles-credit && \
     conda run -n credit pip install --no-cache-dir . && \
-    conda run -n credit pip install -e .
+    conda run -n credit pip install -e . && \
+    chown -R 1000:1000 /workspace
+
+USER 1000
+ENV HOME=/workspace
 
 RUN git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git /workspace/CIRRUS-MILES-CREDIT
 
