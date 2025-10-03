@@ -1,4 +1,6 @@
 #! /bin/bash
+conda run -n credit which python
+conda run -n credit python -m pip show credit
 conda activate credit
 conda list
 nvidia-smi
