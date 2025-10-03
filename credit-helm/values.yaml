@@ -46,6 +46,9 @@ jobs:
     name: cirrustest-debug
     command: ["/bin/bash", "-c"]
     args: |
+      conda activate credit
+      git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+      chmod 777 ./CIRRUS-MILES-CREDIT/credit.sh
       ./credit.sh
 
 cronjobs:
