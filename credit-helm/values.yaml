@@ -46,6 +46,7 @@ jobs:
     name: cirrustest-debug
     command: ["/bin/bash", "-c"]
     args: |
+      chmod 777 /workspace/CIRRUS-MILES_CREDIT/credit.sh
       ./credit.sh
 
 cronjobs:

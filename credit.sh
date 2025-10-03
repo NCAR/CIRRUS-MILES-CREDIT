@@ -10,13 +10,7 @@ cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_20
 export PATH=/home/ubuntu/.local/bin:$PATH
 cd /workspace/CIRRUS-MILES-CREDIT
 git pull
-chmod 777 ./credit.sh
-#git clone -q https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-#git pull -q
-#python -m pip install xesmf
-#conda install -c conda-forge esmpy yaml -y
-#echo conda contents
-#conda install -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
+#chmod 777 ./credit.sh
 echo "GFS INIT!!!!"
 rm -rf /output
 conda run -n credit python /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
