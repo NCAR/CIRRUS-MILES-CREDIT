@@ -1,9 +1,10 @@
 #! /bin/bash
 echo foo
+conda run -n credit python -c "import sys; print(sys.executable); print(sys.path)"
 conda run -n credit which python
 conda run -n credit python -m pip show credit
 conda activate credit
-conda list
+conda list |grep credit
 nvidia-smi
 echo shmem
 df -h /dev/shm
