@@ -40,7 +40,7 @@ RUN conda init bash
 #RUN pip install xesmf esmpy
 
 RUN mkdir -p /workspace/miles-credit && \
-    chmod -R 777 /workspace /opt/conda
+    mkdir -p /workspace /output /opt/conda
 
 # Ensure conda activates credit automatically for all bash shells
 RUN echo "conda activate credit" >> /etc/bash.bashrc
@@ -51,7 +51,8 @@ RUN git clone https://github.com/NCAR/miles-credit.git /workspace/miles-credit
 WORKDIR /workspace/miles-credit
 RUN cd /workspace/miles-credit && \
     conda run -n credit pip install -e . && \
-    chown -R 1000:1000 /workspace
+    chown -R 1000:1000 /workspace /output
+
 #    conda run -n credit pip install --no-cache-dir . && \
 
 USER 1000
