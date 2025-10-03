@@ -18,5 +18,5 @@ conda run -n credit python /workspace/miles-credit/applications/gfs_init.py -c /
 mkdir -p /output/wxformer_1h_gfs
 echo "ROLLOUT REALTIME"
 ls -lrth /checkpoint
-conta run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
+conda run -n credit python /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 ls -a /output
