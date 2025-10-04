@@ -17,6 +17,7 @@ git pull
 mkdir -p /output/wxformer_1h_gfs
 echo "ROLLOUT REALTIME"
 ls -lrth /checkpoint
+cp /workspace/CIRRUS-MILES-CREDIT/output.py /workspace/miles-credit/credit
 conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 #python -u /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 ls -a /output
