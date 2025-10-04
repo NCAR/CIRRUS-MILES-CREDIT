@@ -3,6 +3,7 @@ echo foo
 conda run -n credit python -m pip show miles-credit
 #conda activate credit
 nvidia-smi
+conda install -n credit -y -c conda-forge "hdf5=*=nompi_*" "libnetcdf=*=nompi_*" "netcdf4=*=nompi_*"
 conda list -n credit
 cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
 cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
