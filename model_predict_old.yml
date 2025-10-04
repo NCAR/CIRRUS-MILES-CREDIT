@@ -148,15 +148,15 @@ predict:
         zlib: True
         complevel: 1
         shuffle: True
-    #    chunksizes: [1, *levels, *height, *width]
         chunksizes: (1, *levels, *height, *width)
+    #    chunksizes: [1, *levels, *height, *width]
 
     pressure_var_encoding:
         zlib: True
         complevel: 1
         shuffle: True
-    #    chunksizes: [ 1, 1, *height, *width]
         chunksizes: ( 1, 1, *height, *width)
+    #    chunksizes: [ 1, 1, *height, *width]
 
     surface_var_encoding:
         zlib: true
