@@ -19,3 +19,4 @@ echo "ROLLOUT REALTIME"
 ls -lrth /checkpoint
 conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 ls -a /output
+
