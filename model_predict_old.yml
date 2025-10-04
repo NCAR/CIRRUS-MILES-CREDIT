@@ -148,19 +148,22 @@ predict:
         zlib: True
         complevel: 1
         shuffle: True
-        chunksizes: [1, *levels, *height, *width]
+    #    chunksizes: [1, *levels, *height, *width]
+        chunksizes: (1, *levels, *height, *width)
 
     pressure_var_encoding:
         zlib: True
         complevel: 1
         shuffle: True
-        chunksizes: [ 1, 1, *height, *width]
+    #    chunksizes: [ 1, 1, *height, *width]
+        chunksizes: ( 1, 1, *height, *width)
 
     surface_var_encoding:
         zlib: true
         complevel: 1
         shuffle: True
-        chunksizes: [1, *height, *width]
+        chunksizes: (1, *height, *width)
+        #chunksizes: [1, *height, *width]
    #initial_condition_path: "/glade/derecho/scratch/pearse/gfs_init/"
     initial_condition_path: "/output"
     static_fields: "/glade/campaign/cisl/aiml/credit/static_scalers/gfs_static_whole.nc"
