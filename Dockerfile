@@ -1,5 +1,6 @@
 FROM nvidia/cuda:12.9.1-base-ubuntu24.04
 
+ENV PYTHONBUFFERED=1
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CONDA_DIR=/opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
