@@ -12,7 +12,7 @@ cd /workspace/CIRRUS-MILES-CREDIT
 git pull
 #chmod 777 ./credit.sh
 echo "GFS INIT!!!!"
-rm -rf /output/*
+#rm -rf /output/*
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 mkdir -p /output/wxformer_1h_gfs
 echo "ROLLOUT REALTIME"

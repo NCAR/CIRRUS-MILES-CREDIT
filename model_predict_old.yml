@@ -132,7 +132,8 @@ predict:
         days: 10             # forecast lead time as days (1 means 24-hour forecast)
     realtime:
         forecast_start_time: "2025-07-02 00:00:00"
-        forecast_end_time: "2025-07-12 00:00:00"
+        forecast_end_time: "2025-07-02 02:00:00"
+        #forecast_end_time: "2025-07-12 00:00:00"
         forecast_timestep: "1h"
     interp_pressure:
         pressure_levels: [500.0, 700.0, 850.0]
