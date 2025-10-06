@@ -140,6 +140,75 @@ def make_xarray(pred, forecast_datetime, lat, lon, conf):
     return darray_upper_air, darray_single_level
 
 
+import re
+from copy import deepcopy
+
+def normalize_encoding_chunksizes(ds, encoding_dict):
+    """
+    Return a copy of encoding_dict where 'chunksizes' for each variable
+    is converted to a tuple of ints with the same rank as the variable.
+    Handles lists, tuples, and strings like "(1, 16, 640, 1280)".
+    If not enough numeric tokens are found, pads with 1s on the left.
+    If too many are found, keeps the rightmost N tokens (align to right).
+    """
+    enc_copy = deepcopy(encoding_dict or {})
+    for var_name, data_array in ds.data_vars.items():
+        if var_name not in enc_copy:
+            continue
+        enc = enc_copy[var_name]
+        if not isinstance(enc, dict) or "chunksizes" not in enc:
+            continue
+
+        raw = enc["chunksizes"]
+        nums = []
+
+        # 1) If list/tuple: try to extract ints from each item
+        if isinstance(raw, (list, tuple)):
+            for item in raw:
+                if isinstance(item, int):
+                    nums.append(item)
+                elif isinstance(item, str):
+                    found = re.findall(r"-?\d+", item)
+                    nums.extend(int(x) for x in found)
+                else:
+                    try:
+                        nums.append(int(item))
+                    except Exception:
+                        # ignore non-int-like items
+                        pass
+
+        # 2) If string: extract all integers
+        elif isinstance(raw, str):
+            found = re.findall(r"-?\d+", raw)
+            nums = [int(x) for x in found]
+
+        # 3) If single int-like value
+        else:
+            try:
+                nums = [int(raw)]
+            except Exception:
+                nums = []
+
+        ndim = data_array.ndim
+
+        # If nothing numeric was found, fall back to the full variable shape
+        if len(nums) == 0:
+            nums = list(data_array.shape)
+
+        # If too few numbers: pad on the left with 1s (so rightmost dims align)
+        if len(nums) < ndim:
+            nums = [1] * (ndim - len(nums)) + nums
+
+        # If too many numbers: keep the last `ndim` numbers (align to right)
+        elif len(nums) > ndim:
+            nums = nums[-ndim:]
+
+        # Finalize as a tuple of ints (h5py requires tuple)
+        enc_copy[var_name]["chunksizes"] = tuple(int(x) for x in nums)
+
+    return enc_copy
+
+
 def save_netcdf_increment(
     darray_upper_air: xr.DataArray,
     darray_single_level: xr.DataArray,
@@ -305,18 +374,30 @@ def save_netcdf_increment(
                 encoding_dict[height_var + height_end] = conf["predict"][
                     "height_var_encoding"
                 ]
+        #print("=== NetCDF save debug ===")
+        #for var_name, da in ds_merged.data_vars.items():
+        #    shape = da.shape
+        #    enc = encoding_dict.get(var_name, {})
+        #    chunks = enc.get("chunksizes", None)
+        #    print(f"Variable: {var_name}")
+        #    print(f"  Shape:      {shape}")
+        #    print(f"  Chunksizes: {chunks}")
+        #    if chunks is not None and len(chunks) != len(shape):
+        #        print(f"  ⚠️  Rank mismatch: shape has {len(shape)} dims, chunksizes has {len(chunks)} entries")
+        #print("=========================")
+
+        # before saving
+        encoding_dict = normalize_encoding_chunksizes(ds_merged, encoding_dict)
+        
+        # debug print to confirm
+        for vname, da in ds_merged.data_vars.items():
+            cs = encoding_dict.get(vname, {}).get("chunksizes", None)
+            print(f"Var {vname}: shape={da.shape} chunksizes={cs}")
+        
+        # then save
+        ds_merged.to_netcdf(unique_filename, mode="w", encoding=encoding_dict)
+
         # Use Dask to write the dataset in parallel
-        print("=== NetCDF save debug ===")
-        for var_name, da in ds_merged.data_vars.items():
-            shape = da.shape
-            enc = encoding_dict.get(var_name, {})
-            chunks = enc.get("chunksizes", None)
-            print(f"Variable: {var_name}")
-            print(f"  Shape:      {shape}")
-            print(f"  Chunksizes: {chunks}")
-            if chunks is not None and len(chunks) != len(shape):
-                print(f"  ⚠️  Rank mismatch: shape has {len(shape)} dims, chunksizes has {len(chunks)} entries")
-        print("=========================")
         ds_merged.to_netcdf(unique_filename, mode="w", encoding=encoding_dict)
 
         logger.info(f"Saved forecast hour {forecast_hour} to {unique_filename}")
