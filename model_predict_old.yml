@@ -149,18 +149,18 @@ predict:
         complevel: 1
         shuffle: True
         #chunksizes: (1, *levels, *height, *width)
-        #chunksizes: [1, *levels, *height, *width]
+        chunksizes: [1, *levels, *height, *width]
         #chunksizes: ( 1, 16, 640, 1280)
-        chunksizes: [ 1, 16, 640, 1280]
+        #chunksizes: [ 1, 16, 640, 1280]
 
     pressure_var_encoding:
         zlib: True
         complevel: 1
         shuffle: True
         #chunksizes: ( 1, 1, *height, *width)
-        #chunksizes: [ 1, 1, *height, *width]
+        chunksizes: [ 1, 1, *height, *width]
         #chunksizes: ( 1, 1, 640, 1280)
-        chunksizes: [ 1, 1, 640, 1280]
+        #chunksizes: [ 1, 1, 640, 1280]
 
     surface_var_encoding:
         zlib: true
