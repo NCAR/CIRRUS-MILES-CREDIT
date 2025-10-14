@@ -149,7 +149,7 @@ predict:
         complevel: 1
         shuffle: True
         #chunksizes: (1, *levels, *height, *width)
-        #chunksizes: [1, *levels, *height, *width]
+        chunksizes: [1, *levels, *height, *width]
         #chunksizes: ( 1, 16, 640, 1280)
         #chunksizes: [ 1, 16, 640, 1280]
 
@@ -158,7 +158,7 @@ predict:
         complevel: 1
         shuffle: True
         #chunksizes: ( 1, 1, *height, *width)
-        # chunksizes: [ 1, 1, *height, *width]
+        chunksizes: [ 1, 1, *height, *width]
         #chunksizes: ( 1, 1, 640, 1280)
         #chunksizes: [ 1, 1, 640, 1280]
 
@@ -167,7 +167,7 @@ predict:
         complevel: 1
         shuffle: True
         #chunksizes: (1, *height, *width)
-        #chunksizes: [1, *height, *width]
+        chunksizes: [1, *height, *width]
         #chunksizes: (1, 640, 1280)
         #chunksizes: [1, 640, 1280]
    #initial_condition_path: "/glade/derecho/scratch/pearse/gfs_init/"

@@ -143,7 +143,8 @@ def make_xarray(pred, forecast_datetime, lat, lon, conf):
 import re
 from copy import deepcopy
 
-def normalize_encoding_chunksizes(ds, encoding_dict):
+#def normalize_encoding_chunksizes(ds, encoding_dict):
+def convert_list_to_tuple(ds, encoding_dict, field_name):
     """
     Return a copy of encoding_dict where 'chunksizes' for each variable
     is converted to a tuple of ints with the same rank as the variable.
@@ -156,10 +157,10 @@ def normalize_encoding_chunksizes(ds, encoding_dict):
         if var_name not in enc_copy:
             continue
         enc = enc_copy[var_name]
-        if not isinstance(enc, dict) or "chunksizes" not in enc:
+        if not isinstance(enc, dict) or field_name not in enc:
             continue
 
-        raw = enc["chunksizes"]
+        raw = enc[field_name]
         nums = []
 
         # 1) If list/tuple: try to extract ints from each item
@@ -204,7 +205,7 @@ def normalize_encoding_chunksizes(ds, encoding_dict):
             nums = nums[-ndim:]
 
         # Finalize as a tuple of ints (h5py requires tuple)
-        enc_copy[var_name]["chunksizes"] = tuple(int(x) for x in nums)
+        enc_copy[var_name][field_name] = tuple(int(x) for x in nums)
 
     return enc_copy
 
@@ -374,25 +375,15 @@ def save_netcdf_increment(
                 encoding_dict[height_var + height_end] = conf["predict"][
                     "height_var_encoding"
                 ]
-        #print("=== NetCDF save debug ===")
-        #for var_name, da in ds_merged.data_vars.items():
-        #    shape = da.shape
-        #    enc = encoding_dict.get(var_name, {})
-        #    chunks = enc.get("chunksizes", None)
-        #    print(f"Variable: {var_name}")
-        #    print(f"  Shape:      {shape}")
-        #    print(f"  Chunksizes: {chunks}")
-        #    if chunks is not None and len(chunks) != len(shape):
-        #        print(f"  ⚠️  Rank mismatch: shape has {len(shape)} dims, chunksizes has {len(chunks)} entries")
-        #print("=========================")
 
         # before saving
-        encoding_dict = normalize_encoding_chunksizes(ds_merged, encoding_dict)
+        #encoding_dict = normalize_encoding_chunksizes(ds_merged, encoding_dict)
+        encoding_dict = convert_list_to_tuple(ds_merged, encoding_dict, "chunksizes")
         
         # debug print to confirm
-        for vname, da in ds_merged.data_vars.items():
-            cs = encoding_dict.get(vname, {}).get("chunksizes", None)
-            print(f"Var {vname}: shape={da.shape} chunksizes={cs}")
+        #for vname, da in ds_merged.data_vars.items():
+        #    cs = encoding_dict.get(vname, {}).get("chunksizes", None)
+        #    print(f"Var {vname}: shape={da.shape} chunksizes={cs}")
         
         # then save
         ds_merged.to_netcdf(unique_filename, mode="w", encoding=encoding_dict)
