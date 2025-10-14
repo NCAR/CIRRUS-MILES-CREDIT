@@ -60,8 +60,9 @@ cronjobs:
     timeZone: "America/Denver"
     command: ["/bin/bash", "-c"]
     args: |
-      conda activate credit
-      git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
-      chmod 777 ./CIRRUS-MILES-CREDIT/credit.sh
-      ./CIRRUS-MILES-CREDIT/dateChange.sh
-      ./CIRRUS-MILES-CREDIT/credit.sh
+      cd /workspace/CIRRUS-MILES-CREDIT
+      git pull
+      chmod 777 credit.sh
+      rm -rf /output/*
+      ./dateChange.sh
+      ./credit.sh
