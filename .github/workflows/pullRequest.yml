@@ -1,4 +1,4 @@
-name: build and push
+name: test PR
 
 #on: push #run workflow on any push
 
@@ -47,12 +47,19 @@ jobs:
         registry: hub.k8s.ucar.edu/project-name
         username: ${{ secrets.hub_user }} #robot account for your project in cirrus registry
         password: ${{ secrets.hub_password }} #set up in the github CI settings
-    - name: Build
-      uses: docker/build-push-action@v6
-      with:
-        push: true
-        tags: hub.k8s.ucar.edu/project-name/image-name:${{ env.SHORT_SHA }} #recommend the tag is a variable. Can use multiple tags.
-        file: containers/Dockerfile
-        #to utilize better image build caching using hub.k8s.ucar.edu
-        cache-from: "type=registry,ref=hub.k8s.ucar.edu/project-name/image-name:cache"
-        cache-to: "type=registry,ref=hub.k8s.ucar.edu/project-name/image-name:cache,image-manifest=true,mode=max"
+    - name: Run debug job
+      run: |
+        echo "Running debug job for PR on self-hosted runner"
+        cd /workspace/CIRRUS-MILES-CREDIT
+        git pull
+        chmod 777 credit.sh
+        ./credit.sh
+#    - name: Build
+#      uses: docker/build-push-action@v6
+#      with:
+#        push: true
+#        tags: hub.k8s.ucar.edu/project-name/image-name:${{ env.SHORT_SHA }} #recommend the tag is a variable. Can use multiple tags.
+#        file: containers/Dockerfile
+#        #to utilize better image build caching using hub.k8s.ucar.edu
+#        cache-from: "type=registry,ref=hub.k8s.ucar.edu/project-name/image-name:cache"
+#        cache-to: "type=registry,ref=hub.k8s.ucar.edu/project-name/image-name:cache,image-manifest=true,mode=max"
