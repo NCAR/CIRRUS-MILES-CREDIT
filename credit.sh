@@ -15,4 +15,3 @@ ls -lrth /checkpoint
 cp /workspace/CIRRUS-MILES-CREDIT/output.py /workspace/miles-credit/credit
 conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 ls -lrth /output
-ls -lrth /output/2025-07-02T00Z
