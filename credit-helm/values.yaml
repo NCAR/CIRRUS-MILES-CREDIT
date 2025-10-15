@@ -47,12 +47,12 @@ jobs:
     command: ["/bin/bash", "-c"]
     args: |
       cd /workspace/CIRRUS-MILES-CREDIT
-      git pull
+      git pull -q
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       echo "executing dateChange.sh"
       rm -rf /output/*
-      #./dateChange.sh
+      ./dateChange.sh
       ./credit.sh
 
 cronjobs:
@@ -65,7 +65,7 @@ cronjobs:
     command: ["/bin/bash", "-c"]
     args: |
       cd /workspace/CIRRUS-MILES-CREDIT
-      git pull
+      git pull -q
       chmod 777 credit.sh
       rm -rf /output/*
       ./dateChange.sh
