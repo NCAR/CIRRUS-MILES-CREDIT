@@ -21,10 +21,12 @@ esac
 #start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00")
 #end_time=$(TZ="America/Denver" date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
 
-TZ="America/Denver"
+start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00"); \
+end_time=$(TZ="America/Denver" date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
 
-start_time=$(date +"%Y-%m-%d %H:00:00")
-end_time=$(date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
+#TZ="America/Denver"
+#start_time=$(date +"%Y-%m-%d %H:00:00")
+#end_time=$(date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
 
 echo "start time $start_time"
 echo "end   time $end_time"
