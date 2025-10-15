@@ -50,7 +50,6 @@ jobs:
       git pull -q
       chmod 777 credit.sh
       chmod 777 dateChange.sh
-      echo "executing dateChange.sh"
       rm -rf /output/*
       ./dateChange.sh
       ./credit.sh
