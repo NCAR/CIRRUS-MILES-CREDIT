@@ -49,6 +49,8 @@ jobs:
       cd /workspace/CIRRUS-MILES-CREDIT
       git pull
       chmod 777 credit.sh
+      ./dateChange.sh
+      cat ./model_predict_old.yml
       ./credit.sh
 
 cronjobs:
