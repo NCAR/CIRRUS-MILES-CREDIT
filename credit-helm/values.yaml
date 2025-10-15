@@ -49,6 +49,8 @@ jobs:
       cd /workspace/CIRRUS-MILES-CREDIT
       git pull
       chmod 777 credit.sh
+      chmod 777 dateChange.sh
+      echo "executing dateChange.sh"
       ./dateChange.sh
       cat ./model_predict_old.yml
       ./credit.sh
