@@ -12,14 +12,6 @@ case $hour in
   *) start_hour=18 ;;
 esac
 
-# Build timestamps
-#TZ="America/Denver"
-#date_str=$(TZ="America/Denver" date +%Y-%m-%d)
-#start_time="${date_str} $(printf "%02d" $start_hour):00:00"
-#end_time=$(date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
-
-#start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00")
-#end_time=$(TZ="America/Denver" date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
 
 #start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00"); \
 #end_time=$(TZ="America/Denver" date -d "$start_time +6 hours" +"%Y-%m-%d %H:%M:%S")
@@ -34,9 +26,13 @@ esac
 #start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00")
 #end_time=$(date -d "$(TZ="America/Denver" date -d "$start_time +6 hours")" +"%Y-%m-%d %H:%M:%S")
 
+date_str=$(TZ="$TZ" date +%Y-%m-%d)
+start_time="${date_str} $(printf "%02d" $start_hour):00:00"
+
 # Get epoch time for now in Denver
 #epoch_start=$(TZ="America/Denver" date +%s)
-epoch_start=$(date --date="$(TZ='America/Denver' date)" +%s)
+#epoch_start=$(date --date="$(TZ='America/Denver' date)" +%s)
+epoch_start=$(date --date="$start_time" +%s)
 # Add 6 hours (in seconds)
 epoch_end=$((epoch_start + 6*3600))
 # Format both in Denver local time
