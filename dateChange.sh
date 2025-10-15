@@ -21,4 +21,3 @@ sed -i \
   -e "s|^\(.*forecast_start_time: *\).*|\1\"${start_time}\"|" \
   -e "s|^\(.*forecast_end_time: *\).*|\1\"${end_time}\"|" \
   "$FILE"
-
