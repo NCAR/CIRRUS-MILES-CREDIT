@@ -1,6 +1,7 @@
 #!/bin/bash
 # Path to the file to edit
 FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml"
+export TZ="America/Denver"
 
 # Determine which 6-hour window we're in
 hour=$(date +%H)
