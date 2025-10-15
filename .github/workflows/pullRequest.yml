@@ -49,7 +49,7 @@ jobs:
         password: ${{ secrets.hub_password }} #set up in the github CI settings
     - name: Run debug job
       run: |
-        echo "Running debug job for PR on self-hosted runner"
+        echo "Running debug job for PR on self-hosted runner!"
         cd /workspace/CIRRUS-MILES-CREDIT
         git pull
         chmod 777 credit.sh
