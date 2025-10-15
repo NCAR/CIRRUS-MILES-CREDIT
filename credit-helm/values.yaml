@@ -51,8 +51,8 @@ jobs:
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       echo "executing dateChange.sh"
+      rm -rf /output/*
       ./dateChange.sh
-      cat ./model_predict_old.yml
       ./credit.sh
 
 cronjobs:
