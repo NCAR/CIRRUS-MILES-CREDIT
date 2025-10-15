@@ -1,6 +1,6 @@
 #!/bin/bash
 # Path to the file to edit
-FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yaml"
+FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml"
 
 echo "changing date on $FILE"
 
