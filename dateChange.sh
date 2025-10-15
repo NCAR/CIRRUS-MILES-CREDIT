@@ -35,7 +35,8 @@ esac
 #end_time=$(date -d "$(TZ="America/Denver" date -d "$start_time +6 hours")" +"%Y-%m-%d %H:%M:%S")
 
 # Get epoch time for now in Denver
-epoch_start=$(TZ="America/Denver" date +%s)
+#epoch_start=$(TZ="America/Denver" date +%s)
+epoch_start=$(date --date="$(TZ='America/Denver' date)" +%s)
 # Add 6 hours (in seconds)
 epoch_end=$((epoch_start + 6*3600))
 # Format both in Denver local time
