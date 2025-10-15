@@ -52,7 +52,7 @@ jobs:
       chmod 777 dateChange.sh
       echo "executing dateChange.sh"
       rm -rf /output/*
-      ./dateChange.sh
+      #./dateChange.sh
       ./credit.sh
 
 cronjobs:
