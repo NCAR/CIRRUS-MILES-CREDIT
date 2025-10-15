@@ -31,8 +31,16 @@ esac
 #echo "start time $start_time"
 #echo "end   time $end_time"
 
-start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00")
-end_time=$(date -d "$(TZ="America/Denver" date -d "$start_time +6 hours")" +"%Y-%m-%d %H:%M:%S")
+#start_time=$(TZ="America/Denver" date +"%Y-%m-%d %H:00:00")
+#end_time=$(date -d "$(TZ="America/Denver" date -d "$start_time +6 hours")" +"%Y-%m-%d %H:%M:%S")
+
+# Get epoch time for now in Denver
+epoch_start=$(TZ="America/Denver" date +%s)
+# Add 6 hours (in seconds)
+epoch_end=$((epoch_start + 6*3600))
+# Format both in Denver local time
+start_time=$(TZ="America/Denver" date -d @"$epoch_start" +"%Y-%m-%d %H:%M:%S")
+end_time=$(TZ="America/Denver" date -d @"$epoch_end" +"%Y-%m-%d %H:%M:%S")
 echo "start=$start_time end=$end_time"
 
 # Apply sed replacements in-place
