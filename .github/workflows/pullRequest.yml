@@ -27,7 +27,7 @@ jobs:
       image: docker.io/sgpearse/cirrustest:1.3.20
     steps: 
     - name: checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       env:
         GITHUB_TOKEN: ${{ github.token }}
     #This step sets up a varibale to use later in the image tag
