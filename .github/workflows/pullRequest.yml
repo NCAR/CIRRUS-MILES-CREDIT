@@ -40,6 +40,8 @@ jobs:
       uses: actions/checkout@v4
       env:
         GITHUB_TOKEN: ${{ github.token }}
+      with:
+        path: /workspace  # Might need
     #This step sets up a varibale to use later in the image tag
     - name: Get short sha
       run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
@@ -62,7 +64,8 @@ jobs:
       run: |
         echo "Running debug job for PR on self-hosted runner"
         cd /workspace/CIRRUS-MILES-CREDIT
-        git pull
+        git branch
+        #git pull
         chmod 777 credit.sh
         ./credit.sh
 #    - name: Build
