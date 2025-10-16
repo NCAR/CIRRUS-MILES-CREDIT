@@ -52,8 +52,10 @@ jobs:
         id
         whoami
         ls -ld /__w/_temp/_runner_file_commands
+      uses: actions/checkout@v4
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
-    uses: actions/checkout@v4
     - name: checkout code
       uses: actions/checkout@v4
       env:
