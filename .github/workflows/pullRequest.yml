@@ -20,7 +20,7 @@ on:
   #workflow_dispatch:
   pull_request:  # Use this to run the PR's workflow (usually for testing a new workflow)
   #pull_request_target:  # Use this to run main's cannonical workflow, to verify a PR
-    types: [opened, synchonize, reopened]
+    types: [opened, synchronize, reopened]
 jobs: 
   build: 
     runs-on: gha-runner-miles-credit
