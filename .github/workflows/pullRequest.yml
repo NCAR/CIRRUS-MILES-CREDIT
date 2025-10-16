@@ -35,10 +35,8 @@ jobs:
         id
         ls -ld /__w /__w/_temp /__w/_temp/_runner_file_commands || true
         touch /__w/_temp/testfile || echo "Cannot write"
-
     - name: Fix permissions
       run: sudo chown -R 1000:1000 /__w || true
-
     - name: Switch to root
       run: |
         whoami
@@ -47,31 +45,26 @@ jobs:
       env:
         USER: root
       # optional — mostly diagnostic
-  
     - name: Checkout code
       run: |
         id
         whoami
         ls -ld /__w/_temp/_runner_file_commands
-
     uses: actions/checkout@v4
     - name: checkout code
       uses: actions/checkout@v4
       env:
         GITHUB_TOKEN: ${{ github.token }}
-
     #This step sets up a varibale to use later in the image tag
     - name: Get short sha
       run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
     #This step is necessary in the cirrus system
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       with:
         platforms: linux/amd64
         driver: remote
         endpoint: tcp://buildkitd.arc-systems.svc:1234
-
     # Log in to the cirrus hosted container registry instead of dockerhub
     - name: registry login
       uses: docker/login-action@v3
@@ -80,7 +73,6 @@ jobs:
         registry: hub.k8s.ucar.edu/CIRRUS-MILES-CREDIT
         username: ${{ secrets.hub_user }} #robot account for your project in cirrus registry
         password: ${{ secrets.hub_password }} #set up in the github CI settings
-
     - name: Run debug job
       run: |
         echo "Running debug job for PR on self-hosted runner"
