@@ -36,7 +36,7 @@ jobs:
         touch /__w/_temp/testfile || echo "Cannot write"
 
     - name: Fix permissions
-      run: sudo chown -R 1000:1000 /__w || true
+      run: chown -R 1000:1000 /__w || true
 
     - name: Switch to root
       run: |
