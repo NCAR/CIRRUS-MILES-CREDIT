@@ -1,5 +1,7 @@
 FROM nvidia/cuda:12.9.1-base-ubuntu24.04
 
+USER root
+
 ENV PYTHONBUFFERED=1
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CONDA_DIR=/opt/conda
@@ -58,7 +60,7 @@ RUN cd /workspace/miles-credit && \
 
 #    conda run -n credit pip install --no-cache-dir . && \
 
-USER 1000
+#USER 1000
 ENV HOME=/workspace
 
 RUN git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git /workspace/CIRRUS-MILES-CREDIT
