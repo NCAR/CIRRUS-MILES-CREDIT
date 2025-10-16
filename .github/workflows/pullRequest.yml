@@ -34,8 +34,8 @@ jobs:
         id
         ls -ld /__w /__w/_temp /__w/_temp/_runner_file_commands || true
         touch /__w/_temp/testfile || echo "Cannot write"
-    - name: Fix permissions
-      run: sudo chown -R 1000:1000 /__w || true
+    #- name: Fix permissions
+    #  run: sudo chown -R 1000:1000 /__w || true
     - name: checkout code
       uses: actions/checkout@v4
       env:
