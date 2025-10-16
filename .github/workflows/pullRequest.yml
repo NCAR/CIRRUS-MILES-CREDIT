@@ -20,50 +20,36 @@ on:
   #workflow_dispatch:
   pull_request:  # Use this to run the PR's workflow (usually for testing a new workflow)
   #pull_request_target:  # Use this to run main's cannonical workflow, to verify a PR
-    types: [opened, synchronize, reopened]
+    types: [opened, synchonize, reopened]
 jobs: 
   build: 
     runs-on: gha-runner-miles-credit
     container:
-      image: docker.io/sgpearse/cirrustest:1.3.20
+      image: docker.io/sgpearse/cirrustest:1.3.20.root.1
       options: --user 0
       #options: --user $(id -u):$(id -g)
     steps: 
-    - name: Debug permissions1
+    - name: Debug permissions...
       run: |
         id
         ls -ld /__w /__w/_temp /__w/_temp/_runner_file_commands || true
         touch /__w/_temp/testfile || echo "Cannot write"
-
-    - name: Fix permissions
-      run: chown -R 1000:1000 /__w || true
-
-    - name: Switch to root
-      run: |
-        whoami
-        id
-      shell: bash
-      env:
-        USER: root
-      # optional — mostly diagnostic
-  
+    #- name: Fix permissions
+    #  run: sudo chown -R 1000:1000 /__w || true
     - name: checkout code
       uses: actions/checkout@v4
       env:
         GITHUB_TOKEN: ${{ github.token }}
-
     #This step sets up a varibale to use later in the image tag
     - name: Get short sha
       run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
     #This step is necessary in the cirrus system
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       with:
         platforms: linux/amd64
         driver: remote
         endpoint: tcp://buildkitd.arc-systems.svc:1234
-
     # Log in to the cirrus hosted container registry instead of dockerhub
     - name: registry login
       uses: docker/login-action@v3
@@ -72,7 +58,6 @@ jobs:
         registry: hub.k8s.ucar.edu/CIRRUS-MILES-CREDIT
         username: ${{ secrets.hub_user }} #robot account for your project in cirrus registry
         password: ${{ secrets.hub_password }} #set up in the github CI settings
-
     - name: Run debug job
       run: |
         echo "Running debug job for PR on self-hosted runner"
@@ -80,7 +65,6 @@ jobs:
         git pull
         chmod 777 credit.sh
         ./credit.sh
-
 #    - name: Build
 #      uses: docker/build-push-action@v6
 #      with:
