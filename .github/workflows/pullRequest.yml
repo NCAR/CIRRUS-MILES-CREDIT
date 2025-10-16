@@ -18,8 +18,8 @@ name: test PR
 #workflow dispatch adds a button to run on github and is useful to always have there
 on:
   #workflow_dispatch:
-  #pull_request:  # Use this to run the PR's workflow (usually for testing a new workflow)
-  pull_request_target:  # Use this to run main's cannonical workflow, to verify a PR
+  pull_request:  # Use this to run the PR's workflow (usually for testing a new workflow)
+  #pull_request_target:  # Use this to run main's cannonical workflow, to verify a PR
     types: [opened, synchonize, reopened]
 jobs: 
   build: 
@@ -29,6 +29,8 @@ jobs:
       options: --user 0
       #options: --user $(id -u):$(id -g)
     steps: 
+    - name: Fix permissions
+      run: sudo chown -R 1000:1000 /__w || true
     - name: checkout code
       uses: actions/checkout@v4
       env:
