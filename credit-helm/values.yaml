@@ -31,7 +31,8 @@ webapp:
       medium: Memory
       sizeLimit: 128Gi
   container: 
-    image: docker.io/sgpearse/cirrustest:1.3.20
+    #image: docker.io/sgpearse/cirrustest:1.3.20
+    image: docker.io/sgpearse/cirrustest:1.3.20.root
     port: 8080
     requests: 
       memory: 128Gi
