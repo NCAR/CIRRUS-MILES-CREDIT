@@ -47,19 +47,19 @@ jobs:
         USER: root
       # optional — mostly diagnostic
   
-    #- name: Checkout code
-    #  run: |
-    #    id
-    #    whoami
-    #    ls -ld /__w/_temp/_runner_file_commands
-    #  uses: actions/checkout@v4
-    #    env:
-    #      GITHUB_TOKEN: ${{ github.token }}
-
-    - name: checkout code
+    - name: Checkout code
+      run: |
+        id
+        whoami
+        ls -ld /__w/_temp/_runner_file_commands
       uses: actions/checkout@v4
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+    #- name: checkout code
+    #  uses: actions/checkout@v4
+    #  env:
+    #    GITHUB_TOKEN: ${{ github.token }}
 
     #This step sets up a varibale to use later in the image tag
     - name: Get short sha
