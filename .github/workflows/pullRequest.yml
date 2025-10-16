@@ -30,26 +30,26 @@ jobs:
       options: --user 0
       #options: --user $(id -u):$(id -g)
     steps: 
-    - name: Debug permissions1
-      run: |
-        id
-        ls -ld /__w /__w/_temp /__w/_temp/_runner_file_commands || true
-        touch /__w/_temp/testfile || echo "Cannot write"
-    - name: Fix permissions
-      run: sudo chown -R 1000:1000 /__w || true
-    - name: Switch to root
-      run: |
-        whoami
-        id
-      shell: bash
-      env:
-        USER: root
-      # optional — mostly diagnostic
-    - name: Checkout code
-      run: |
-        id
-        whoami
-        ls -ld /__w/_temp/_runner_file_commands
+    #- name: Debug permissions1
+    #  run: |
+    #    id
+    #    ls -ld /__w /__w/_temp /__w/_temp/_runner_file_commands || true
+    #    touch /__w/_temp/testfile || echo "Cannot write"
+    #- name: Fix permissions
+    #  run: sudo chown -R 1000:1000 /__w || true
+    #- name: Switch to root
+    #  run: |
+    #    whoami
+    #    id
+    #  shell: bash
+    #  env:
+    #    USER: root
+    #  # optional — mostly diagnostic
+    #- name: Checkout code
+    #  run: |
+    #    id
+    #    whoami
+    #    ls -ld /__w/_temp/_runner_file_commands
     uses: actions/checkout@v4
     - name: checkout code
       uses: actions/checkout@v4
