@@ -69,7 +69,7 @@ jobs:
         git reset --hard origin/$GITHUB_HEAD_REF
         git branch
         #git pull
-        #chmod 777 credit.sh
+        chmod 777 credit.sh
         ./credit.sh
 #    - name: Build
 #      uses: docker/build-push-action@v6
