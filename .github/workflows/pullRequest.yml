@@ -66,7 +66,7 @@ jobs:
         cd /workspace/CIRRUS-MILES-CREDIT
         git branch
         echo "$GITHUB_HEAD_REF"
-        git checkout $GITHUB_HEAD_REF
+        git checkout --force origin/$GITHUB_HEAD_REF
         git branch
         git pull
         chmod 777 credit.sh
