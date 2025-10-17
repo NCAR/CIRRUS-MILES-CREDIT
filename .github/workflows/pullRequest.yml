@@ -65,6 +65,7 @@ jobs:
         echo "Running debug job for PR on self-hosted runner"
         cd /workspace/CIRRUS-MILES-CREDIT
         git branch
+        echo "$GITHUB_REF_NAME"
         git checkout $GITHUB_REF_NAME
         git branch
         git pull
