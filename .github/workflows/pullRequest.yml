@@ -45,6 +45,7 @@ jobs:
         #mkdir /checkpoint
         #mkdir /output
         cd /workspace/CIRRUS-MILES-CREDIT
+        git config --global --add safe.directory /workspace/miles-credit
         git reset --hard origin/$GITHUB_HEAD_REF
         chmod 777 credit.sh
         ./credit.sh
