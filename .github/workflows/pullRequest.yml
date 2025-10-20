@@ -42,8 +42,8 @@ jobs:
         ls /glade/campaign/cisl/vast/pearse
         ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts
         ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts/metrics
-        mkdir /checkpoint
-        mkdir /output
+        #mkdir /checkpoint
+        #mkdir /output
         cd /workspace/CIRRUS-MILES-CREDIT
         git reset --hard origin/$GITHUB_HEAD_REF
         chmod 777 credit.sh
