@@ -54,4 +54,5 @@ jobs:
         #echo "MY BRANCH and $GITHUB_HEAD_REF $GITHUB_REF"
         #git branch
         chmod 777 credit.sh
+        cat ./credit.sh
         ./credit.sh
