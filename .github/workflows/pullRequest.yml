@@ -31,6 +31,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Fetch and checkout PR head commit
       run: |
+        git config --global --add safe.directory /__w/CIRRUS-MILES-CREDIT/CIRRUS-MILES-CREDIT
         git fetch origin ${{ github.event.pull_request.head.sha }}
         git checkout ${{ github.event.pull_request.head.sha }}
     - name: Run debug job
@@ -40,7 +41,7 @@ jobs:
         #ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts
         #ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts/metrics
         cd /workspace/CIRRUS-MILES-CREDIT
-        git config --global --add safe.directory /workspace/miles-credit
+        #git config --global --add safe.directory /workspace/miles-credit
         echo "Expected PR head SHA: ${{ github.event.pull_request.head.sha }}"
         git rev-parse HEAD
         #git reset --hard origin/$GITHUB_HEAD_REF
