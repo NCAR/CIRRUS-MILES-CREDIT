@@ -10,8 +10,9 @@ ls /glade/campaign/cisl/vast/pearse/credit_arxiv_models/wxformer_1h/finetune_fin
 #ls /checkpoint/finetune_final
 export PATH=/home/ubuntu/.local/bin:$PATH
 #cd /workspace/CIRRUS-MILES-CREDIT
-cd /workspace/miles-credit
-git pull -q
+#cd /workspace/miles-credit
+#git pull -q
+git -C /workspace/miles-credit pull -q
 #chmod 777 ./credit.sh
 #echo "GFS INIT!!!!"
 #rm -rf /output/*
