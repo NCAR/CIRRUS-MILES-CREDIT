@@ -1,6 +1,6 @@
 #! /bin/bash
 nvidia-smi
-ls /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final
+ls /glade/campaign/cisl/vast/pearse/credit_arxiv_models/wxformer_1h/finetune_final
 #mkdir -p /checkpoint/finetune_final
 #cp -rv /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/* /checkpoint/finetune_final
 #ls -lrth /checkpoint
