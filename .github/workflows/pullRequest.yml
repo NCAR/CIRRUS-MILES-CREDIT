@@ -24,7 +24,7 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.head_ref }}
+        ref: ${{ github.head_ref || github.ref_name }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
     #This step sets up a varibale to use later in the image tag
@@ -44,13 +44,16 @@ jobs:
         #ls /glade/campaign/cisl/vast/pearse
         #ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts
         #ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts/metrics
-        #mkdir /checkpoint
-        #mkdir /output
         cd /workspace/CIRRUS-MILES-CREDIT
         git config --global --add safe.directory /workspace/miles-credit
+        echo "github.ref:       ${{ github.ref }}"
+        echo "github.head_ref:  ${{ github.head_ref }}"
+        echo "github.ref_name:  ${{ github.ref_name }}"
+        git status
+        git log -1 --oneline
         #git reset --hard origin/$GITHUB_HEAD_REF
         #git reset --hard origin/$GITHUB_REF
         #echo "MY BRANCH and $GITHUB_HEAD_REF $GITHUB_REF"
-        git branch
+        #git branch
         chmod 777 credit.sh
         ./credit.sh
