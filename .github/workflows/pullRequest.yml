@@ -24,7 +24,7 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
         #ref: ${{ github.head_ref || github.ref_name }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
