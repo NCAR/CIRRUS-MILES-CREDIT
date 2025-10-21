@@ -12,21 +12,14 @@ jobs:
     container:
       image: docker.io/sgpearse/cirrustest:1.3.20.root.1
       options: --user 0
-      #options: --user $(id -u):$(id -g)
     steps: 
     - name: Debug permissions...
       run: |
         id
         ls -ld /__w /__w/_temp /__w/_temp/_runner_file_commands || true
         touch /__w/_temp/testfile || echo "Cannot write"
-    #- name: Fix permissions
-    #  run: sudo chown -R 1000:1000 /__w || true
     - name: checkout code
       uses: actions/checkout@v4
-      #with:
-      #  ref: ${{ github.event.pull_request.head.sha }}
-        #ref: ${{ github.event.pull_request.head.sha || github.sha }}
-        #ref: ${{ github.head_ref || github.ref_name }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Fetch and checkout PR head commit
@@ -37,19 +30,5 @@ jobs:
     - name: Run debug job
       run: |
         echo "Running debug job for PR on self-hosted runner"
-        #ls /glade/campaign/cisl/vast/pearse
-        #ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts
-        #ls -lrth /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final/forecasts/metrics
-        #cd /workspace/CIRRUS-MILES-CREDIT
-        #git fetch origin ${{ github.event.pull_request.head.sha }}
-        #git checkout ${{ github.event.pull_request.head.sha }}
-        #git config --global --add safe.directory /workspace/miles-credit
-        echo "Expected PR head SHA: ${{ github.event.pull_request.head.sha }}"
-        git rev-parse HEAD
-        #git reset --hard origin/$GITHUB_HEAD_REF
-        #git reset --hard origin/$GITHUB_REF
-        #echo "MY BRANCH and $GITHUB_HEAD_REF $GITHUB_REF"
-        #git branch
         chmod 777 credit.sh
-        cat ./credit.sh
         ./credit.sh
