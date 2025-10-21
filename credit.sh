@@ -1,5 +1,6 @@
 #! /bin/bash
 nvidia-smi
+ls /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final
 cp -r /glade/campaign/cisl/vast/pearse/wxformer_1h/finetune_final /checkpoint
 cp /glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc /checkpoint
 echo "CHECKPOINT"
