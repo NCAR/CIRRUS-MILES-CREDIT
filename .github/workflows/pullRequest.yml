@@ -24,21 +24,11 @@ jobs:
     - name: checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+        ref: ${{ github.event.pull_request.head.sha }}
+        #ref: ${{ github.event.pull_request.head.sha || github.sha }}
         #ref: ${{ github.head_ref || github.ref_name }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-    #This step sets up a varibale to use later in the image tag
-    - name: Get short sha
-      run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
-    # Log in to the cirrus hosted container registry instead of dockerhub
-    #- name: registry login
-    #  uses: docker/login-action@v3
-    #  with:
-    #    #registry: hub.k8s.ucar.edu/project-name
-    #    registry: hub.k8s.ucar.edu/CIRRUS-MILES-CREDIT
-    #    username: ${{ secrets.hub_user }} #robot account for your project in cirrus registry
-    #    password: ${{ secrets.hub_password }} #set up in the github CI settings
     - name: Run debug job
       run: |
         echo "Running debug job for PR on self-hosted runner"
