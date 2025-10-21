@@ -47,5 +47,7 @@ jobs:
         cd /workspace/CIRRUS-MILES-CREDIT
         git config --global --add safe.directory /workspace/miles-credit
         git reset --hard origin/$GITHUB_HEAD_REF
+        echo "MY BRANCH"
+        git branch
         chmod 777 credit.sh
         ./credit.sh
