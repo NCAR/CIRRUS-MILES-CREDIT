@@ -50,6 +50,7 @@ jobs:
       echo "this should say something"
       git config --global --add safe.directory /workspace/CIRRUS-MILES-CREDIT
       cd /workspace/CIRRUS-MILES-CREDIT
+      git stash
       git pull -q
       git log
       chmod 777 credit.sh
