@@ -48,6 +48,7 @@ jobs:
     command: ["/bin/bash", "-c"]
     args: |
       echo "this should say something"
+      git config --global --add safe.directory /workspace/CIRRUS-MILES-CREDIT
       cd /workspace/CIRRUS-MILES-CREDIT
       git pull -q
       git log
