@@ -52,7 +52,7 @@ jobs:
       cd /workspace/CIRRUS-MILES-CREDIT
       git stash
       git pull -q
-      git log
+      git log -1
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
@@ -69,6 +69,7 @@ cronjobs:
     command: ["/bin/bash", "-c"]
     args: |
       cd /workspace/CIRRUS-MILES-CREDIT
+      git stash
       git pull -q
       chmod 777 credit.sh
       chmod 777 dateChange.sh
