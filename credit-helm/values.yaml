@@ -47,6 +47,7 @@ jobs:
     name: cirrustest-debug
     command: ["/bin/bash", "-c"]
     args: |
+      echo "this should say something"
       cd /workspace/CIRRUS-MILES-CREDIT
       git pull -q
       git log
