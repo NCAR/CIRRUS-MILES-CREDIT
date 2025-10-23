@@ -7,12 +7,7 @@ git -C /workspace/miles-credit pull -q
 git -C /workspace/miles-credit branch
 echo "GFS INIT!!!!"
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
-mkdir -p /output/wxformer_1h_gfs
+#mkdir -p /output/wxformer_1h_gfs
 echo "ROLLOUT REALTIME"
-#cp /workspace/CIRRUS-MILES-CREDIT/output.py /workspace/miles-credit/credit
-echo "OUTPUT.PY"
-cat /workspace/miles-credit/credit/output.py
-echo "MODEL_PREDICT_OLD"
-cat ./model_predict_old.yml
 conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./model_predict_old.yml
 ls -lrth /output
