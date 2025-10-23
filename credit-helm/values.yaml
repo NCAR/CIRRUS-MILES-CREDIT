@@ -47,11 +47,11 @@ jobs:
     name: cirrustest-debug
     command: ["/bin/bash", "-c"]
     args: |
-      echo "this should say something"
       git config --global --add safe.directory /workspace/CIRRUS-MILES-CREDIT
       cd /workspace/CIRRUS-MILES-CREDIT
       git stash
       git pull -q
+      echo "CIRRUS-MILES-CREDIT commit:"
       git log -1
       chmod 777 credit.sh
       chmod 777 dateChange.sh
@@ -64,13 +64,14 @@ cronjobs:
     enabled: true
     name: cirrustest-cron
     schedule: "0 0,6,12,18 * * *"
-    #schedule: "0 * * * *"
     timeZone: "America/Denver"
     command: ["/bin/bash", "-c"]
     args: |
       cd /workspace/CIRRUS-MILES-CREDIT
       git stash
       git pull -q
+      echo "CIRRUS-MILES-CREDIT commit:"
+      git log -1
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
