@@ -4,7 +4,7 @@
 export PATH=/home/ubuntu/.local/bin:$PATH
 git -C /workspace/miles-credit stash
 git -C /workspace/miles-credit pull -q
-git -C /workspace/miles-credit branch
+git -C /workspace/miles-credit log -1
 echo "GFS INIT!!!!"
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 #mkdir -p /output/wxformer_1h_gfs
