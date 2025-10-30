@@ -179,7 +179,7 @@ predict:
     metadata: '/glade/campaign/cisl/vast/pearse/metadata/era5.yaml'
     #save_forecast: '/glade/derecho/scratch/pearse/CREDIT/RAW_OUTPUT/wxformer_1h_gfs_demo/'
     #save_forecast: '/output/wxformer_1h_gfs'
-    save_forecast: '/output'
+    save_forecast: '/output/model_predict'
 
     # turn-off low-pass filter
     use_laplace_filter: False
