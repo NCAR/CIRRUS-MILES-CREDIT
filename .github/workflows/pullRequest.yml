@@ -39,13 +39,13 @@ jobs:
     - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
             if: env.GENERATE_BASELINE == 'true'
             run: |
-              aws s3 
-              --no-verify-ssl 
-              --endpoint-url $AWS_ENDPOINT_URL 
-              sync /$TMP_DIR/ci_test/run/ 
-              s3://stormspeed/baselines/${{ matrix.runner }}/${{ matrix.compset }}_${{ matrix.res }}_${{ matrix.compiler }}_${{ matrix.dycore }}/ 
-              --region $AWS_DEFAULT_REGION 
-              --exclude "*" 
-              --include "*cam.h0a*.nc" 
-              --include "*cam.h0i*.nc" 
+              aws s3 \
+              --no-verify-ssl \
+              --endpoint-url $AWS_ENDPOINT_URL \
+              sync /output/model_predict \
+              s3://stormspeed/baselines/${{ matrix.runner }}/${{ matrix.compset }}_${{ matrix.res }}_${{ matrix.compiler }}_${{ matrix.dycore }}/ \
+              --region $AWS_DEFAULT_REGION \
+              --exclude "*" \
+              --include "*cam.h0a*.nc" \
+              --include "*cam.h0i*.nc" \
               --include "*cam.i*.nc"
