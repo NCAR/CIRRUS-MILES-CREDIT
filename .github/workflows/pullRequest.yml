@@ -47,5 +47,3 @@ jobs:
         --region $AWS_DEFAULT_REGION
         #--exclude "*" \
         #--include "*cam.h0a*.nc" \
-        #--include "*cam.h0i*.nc" \
-        #--include "*cam.i*.nc"
