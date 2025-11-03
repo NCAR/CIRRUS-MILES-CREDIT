@@ -37,7 +37,6 @@ jobs:
         chmod 777 credit.sh
         ./credit.sh
     - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
-      if: env.GENERATE_BASELINE == 'true'
       run: |
         conda install s5cmd
         s5cmd \
