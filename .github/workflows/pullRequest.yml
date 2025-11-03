@@ -24,8 +24,8 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
         AWS_ACCESS_KEY_ID: ${{ secrets.CIRRUS_S3_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.CIRRUS_S3_SECRET_KEY }}
-        #AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
-        #AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
     - name: Fetch and checkout PR head commit
       run: |
         git config --global --add safe.directory /__w/CIRRUS-MILES-CREDIT/CIRRUS-MILES-CREDIT
@@ -39,13 +39,14 @@ jobs:
     - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
       if: env.GENERATE_BASELINE == 'true'
       run: |
-        aws s3 \
+        conda install s5cmd
+        s5cmd \
         --no-verify-ssl \
         --endpoint-url $AWS_ENDPOINT_URL \
         sync /output/model_predict \
-        s3://stormspeed/baselines/${{ matrix.runner }}/${{ matrix.compset }}_${{ matrix.res }}_${{ matrix.compiler }}_${{ matrix.dycore }}/ \
-        --region $AWS_DEFAULT_REGION \
-        --exclude "*" \
-        --include "*cam.h0a*.nc" \
-        --include "*cam.h0i*.nc" \
-        --include "*cam.i*.nc"
+        s3://model-predict-bucket \
+        --region $AWS_DEFAULT_REGION
+        #--exclude "*" \
+        #--include "*cam.h0a*.nc" \
+        #--include "*cam.h0i*.nc" \
+        #--include "*cam.i*.nc"
