@@ -47,7 +47,7 @@ jobs:
         s5cmd \
         --no-verify-ssl \
         --endpoint-url $AWS_ENDPOINT_URL \
-        sync --include *.txt \
+        sync --exit-on-error --include *.txt \
         ./ \
         s3://model-predict-bucket
         #sync /output/model_predict \
