@@ -47,9 +47,9 @@ jobs:
         s5cmd \
         --no-verify-ssl \
         --endpoint-url $AWS_ENDPOINT_URL \
+        --region $AWS_DEFAULT_REGION \
         sync  *.txt \
-        s3://model-predict-bucket \
-        --region $AWS_DEFAULT_REGION
+        s3://model-predict-bucket
         #sync /output/model_predict \
         #s3://model-predict-bucket \
         #--region $AWS_DEFAULT_REGION
