@@ -42,6 +42,7 @@ jobs:
         #echo date > /output/model_predict/foo.txt
         touch "$(date +%H-%M-%S).txt"
         echo FOO
+        printenv
         echo $AWS_ENDPOINT_URL
         s5cmd \
         --no-verify-ssl \
