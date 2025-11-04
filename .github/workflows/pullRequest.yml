@@ -42,13 +42,13 @@ jobs:
         #echo date > /output/model_predict/foo.txt
         touch "$(date +%H-%M-%S).txt"
         ls
-        printenv
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
         s5cmd \
         --no-verify-ssl \
         --endpoint-url $AWS_ENDPOINT_URL \
-        sync  *.txt \
+        sync --include *.txt \
+        ./ \
         s3://model-predict-bucket
         #sync /output/model_predict \
         #s3://model-predict-bucket \
