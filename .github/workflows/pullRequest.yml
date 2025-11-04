@@ -40,11 +40,13 @@ jobs:
       run: |
         conda install s5cmd
         echo date > /output/model_predict/foo.txt
+        touch "$(date +%H-%M-%S).txt"
         s5cmd \
         --no-verify-ssl \
         --endpoint-url $AWS_ENDPOINT_URL \
-        sync /output/model_predict \
+        sync  *.txt \
         s3://model-predict-bucket \
         --region $AWS_DEFAULT_REGION
-        #--exclude "*" \
-        #--include "*cam.h0a*.nc" \
+        #sync /output/model_predict \
+        #s3://model-predict-bucket \
+        #--region $AWS_DEFAULT_REGION
