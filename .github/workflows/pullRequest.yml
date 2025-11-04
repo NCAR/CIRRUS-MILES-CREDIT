@@ -39,7 +39,7 @@ jobs:
     - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
       run: |
         conda install s5cmd
-        echo date > /output/model_predict/foo.txt
+        #echo date > /output/model_predict/foo.txt
         touch "$(date +%H-%M-%S).txt"
         s5cmd \
         --no-verify-ssl \
