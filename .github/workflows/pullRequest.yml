@@ -41,7 +41,7 @@ jobs:
         conda install s5cmd
         #echo date > /output/model_predict/foo.txt
         touch "$(date +%H-%M-%S).txt"
-        echo FOO
+        ls
         printenv
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
