@@ -50,6 +50,7 @@ jobs:
         sync --exit-on-error --include *.txt \
         ./ \
         s3://model-predict-bucket
+        s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL sync --exit-on-error --include *.txt . s3://model-predict-bucket
         #sync /output/model_predict \
         #s3://model-predict-bucket \
         #--region $AWS_DEFAULT_REGION
