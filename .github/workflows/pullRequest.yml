@@ -43,8 +43,12 @@ jobs:
         ls -lrth
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
+        echo A
         s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
+        echo B
         s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL sync --exit-on-error --include '*.txt' . s3://model-predict-bucket
+        echo C
+        s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
         #sync /output/model_predict \
         #s3://model-predict-bucket \
         #--region $AWS_DEFAULT_REGION
