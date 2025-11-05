@@ -43,7 +43,7 @@ jobs:
         ls -lrth
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
-        AWS_SDK_LOAD_CONFIG=1 AWS_DEBUG=1 s5cmd ls --endpoint-url https://s3.k8s.ucar.edu:5443 s3://model-predict-bucket/
+        AWS_SDK_LOAD_CONFIG=1 AWS_DEBUG=1 s5cmd --endpoint-url ls https://s3.k8s.ucar.edu:5443 s3://model-predict-bucket/
         s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
         echo A
         s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
