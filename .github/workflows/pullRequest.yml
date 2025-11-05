@@ -40,7 +40,7 @@ jobs:
       run: |
         conda install -y -q s5cmd
         touch "$(date +%H-%M-%S).txt"
-        ls
+        ls -lrth
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
         s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
