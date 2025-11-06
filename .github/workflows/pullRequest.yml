@@ -38,8 +38,8 @@ jobs:
     #    ./credit.sh
     - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
       run: |
-        #conda config --add channels conda-forge
-        #conda config --set channel_priority strict
+        conda config -n credit --add channels conda-forge
+        conda config -n credit --set channel_priority strict
         conda install -n credit -y -q s5cmd
         conda run -n credit s5cmd version
         conda env list
