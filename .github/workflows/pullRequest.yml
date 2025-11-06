@@ -40,6 +40,7 @@ jobs:
       run: |
         wget https://github.com/peak/s5cmd/releases/download/v2.3.0/s5cmd_2.3.0_linux_amd64.deb
         apt install ./s5cmd_2.3.0_linux_amd64.deb
+        s5cmd version
         #conda config -n credit --add channels conda-forge
         #conda config -n credit --set channel_priority strict
         #conda install -n credit -y -q s5cmd
@@ -49,7 +50,6 @@ jobs:
         ls -lrth
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
-        s5cmd version
         AWS_SDK_LOAD_CONFIG=1 AWS_DEBUG=1 s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
         #AWS_SDK_LOAD_CONFIG=1 AWS_DEBUG=1 conda run -n credit s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
         #conda run -n credit s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
