@@ -38,24 +38,23 @@ jobs:
     #    ./credit.sh
     - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
       run: |
-        conda activate credit
-        conda config --add channels conda-forge
-        conda config --set channel_priority strict
-        conda install -y -q s5cmd
-        s5cmd version
+        #conda config --add channels conda-forge
+        #conda config --set channel_priority strict
+        conda install -n credit -y -q s5cmd
+        conda run -n credit s5cmd version
         conda env list
         touch "$(date +%H-%M-%S).txt"
         ls -lrth
         echo $AWS_ENDPOINT_URL
         echo $AWS_DEFAULT_REGION
-        AWS_SDK_LOAD_CONFIG=1 AWS_DEBUG=1 s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
-        s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
+        AWS_SDK_LOAD_CONFIG=1 AWS_DEBUG=1 conda run -n credit s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
+        conda run -n credit s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
         echo A
-        s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
+        conda run -n credit s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
         echo B
-        s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL sync --exit-on-error --include '*.txt' . s3://model-predict-bucket
+        conda run -n credit s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL sync --exit-on-error --include '*.txt' . s3://model-predict-bucket
         echo C
-        s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
+        conda run -n credit s5cmd --endpoint-url=https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
         #sync /output/model_predict \
         #s3://model-predict-bucket \
         #--region $AWS_DEFAULT_REGION
