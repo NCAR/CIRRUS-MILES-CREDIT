@@ -35,6 +35,7 @@ jobs:
         echo "Running debug job for PR on self-hosted runner"
         pwd
         date
+        git log -1
         chmod -R 777 ./.github/workflows/*
         #chmod 777 credit.sh
         #chmod 777 dateChange.sh
