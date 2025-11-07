@@ -34,11 +34,13 @@ jobs:
     - name: Run debug job
       run: |
         echo "Running debug job for PR on self-hosted runner"
+        pwd
         chmod 777 credit.sh
         chmod 777 dateChange.sh
         ./dateChange.sh
         cat model_predict_old.yml
-        ./credit.sh
+        ./.github/workflows/runModelPredict.sh
+        #./credit.sh
         du -h /output
     #- name: Upload the gfs_init.py netCDF output files to CIRRUS storage
     #  run: |
