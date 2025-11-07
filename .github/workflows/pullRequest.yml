@@ -37,8 +37,10 @@ jobs:
         pwd
         chmod 777 credit.sh
         chmod 777 dateChange.sh
-        ./dateChange.sh
-        cat model_predict_old.yml
+        #./dateChange.sh
+        ./.github/workflows/dateChange.sh
+        #cat model_predict_old.yml
+        cat ./.github/workflows/model_predict_CI.yml
         ./.github/workflows/runModelPredict.sh
         #./credit.sh
         du -h /output
