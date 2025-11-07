@@ -4,7 +4,6 @@ name: test PR
 on:
   #workflow_dispatch:
   pull_request:  # Use this to run the PR's workflow (usually for testing a new workflow)
-  #pull_request_target:  # Use this to run main's cannonical workflow, to verify a PR
     types: [opened, synchronize, reopened]
 jobs: 
   build: 
@@ -35,13 +34,14 @@ jobs:
       run: |
         echo "Running debug job for PR on self-hosted runner"
         pwd
+        date
         chmod -R 777 ./.github/workflows/*
         #chmod 777 credit.sh
         #chmod 777 dateChange.sh
         #./dateChange.sh
         ./.github/workflows/dateChange.sh
         #cat model_predict_old.yml
-        cat ./.github/workflows/model_predict_CI.yml
+        #cat ./.github/workflows/model_predict_CI.yml
         ./.github/workflows/runModelPredict.sh
         #./credit.sh
         du -h /output
