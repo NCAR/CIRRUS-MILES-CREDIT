@@ -1,6 +1,7 @@
 #!/bin/bash
 # Path to the file to edit
-FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml"
+#FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml"
+FILE="/__w/CIRRUS-MILES-CREDIT/.github/workflows/model_predict_CI.yml"
 
 # Determine which 6-hour window we're in
 #hour=$(date +%H)
