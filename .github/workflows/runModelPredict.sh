@@ -1,9 +1,9 @@
 #! /bin/bash
 export PATH=/home/ubuntu/.local/bin:$PATH
-git -C /workspace/miles-credit stash
-git -C /workspace/miles-credit pull -q
+#git -C /workspace/miles-credit stash
+#git -C /workspace/miles-credit pull -q
 echo "miles-credit commit:"
-git -C /workspace/miles-credit log -1
+#git -C /workspace/miles-credit log -1
 echo "gfs_init.py!"
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 #mkdir -p /output/model_predict
