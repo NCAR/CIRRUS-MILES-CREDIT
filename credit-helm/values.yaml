@@ -56,7 +56,7 @@ jobs:
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
-      ./dateChange.sh
+      #./dateChange.sh
       ./credit.sh
 
 cronjobs:
