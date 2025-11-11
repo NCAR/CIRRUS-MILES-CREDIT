@@ -1,6 +1,17 @@
 #!/bin/bash
 # Path to the file to edit
-FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml"
+DEFAULT_FILE="/workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml"
+
+FILE="${1:-$DEFAULT_FILE}"
+
+if [[ ! -f "$FILE" ]]; then
+  echo "Error: file not found: $FILE" >&2
+  exit 1
+else
+  echo "Changing date on file: $FILE"
+fi
+
+#FILE="/__w/CIRRUS-MILES-CREDIT/.github/workflows/model_predict_CI.yml"
 
 # Determine which 6-hour window we're in
 #hour=$(date +%H)
