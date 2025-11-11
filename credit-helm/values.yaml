@@ -52,7 +52,7 @@ jobs:
       git stash
       git pull -q
       echo "CIRRUS-MILES-CREDIT commit:"
-      git log -1
+      git log -1 --format=%h
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
