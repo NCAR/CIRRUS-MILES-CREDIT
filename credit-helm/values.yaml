@@ -47,6 +47,7 @@ jobs:
     name: cirrustest-debug
     command: ["/bin/bash", "-c"]
     args: |
+      df -h /dev/shm
       git config --global --add safe.directory /workspace/CIRRUS-MILES-CREDIT
       cd /workspace/CIRRUS-MILES-CREDIT
       git stash
@@ -61,7 +62,7 @@ jobs:
 
 cronjobs:
   credit:
-    enabled: true
+    enabled: false
     name: cirrustest-cron
     schedule: "0 0,6,12,18 * * *"
     timeZone: "America/Denver"
