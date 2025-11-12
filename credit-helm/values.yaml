@@ -51,8 +51,9 @@ jobs:
       cd /workspace/CIRRUS-MILES-CREDIT
       git stash
       git pull -q
-      echo "CIRRUS-MILES-CREDIT commit:"
-      git log -1 --format=%h
+      echo "CIRRUS-MILES-CREDIT   commit:"
+      git log -1 --format=%h | sed 's/\x1b\[[0-9;]*[a-zA-Z]//g'
+      #git log -1 --no-color --format=%h
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
@@ -61,7 +62,7 @@ jobs:
 
 cronjobs:
   credit:
-    enabled: true
+    enabled: false
     name: cirrustest-cron
     schedule: "0 0,6,12,18 * * *"
     timeZone: "America/Denver"
@@ -71,7 +72,7 @@ cronjobs:
       git stash
       git pull -q
       echo "CIRRUS-MILES-CREDIT commit:"
-      git log -1
+      git log -1 --format=%h
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
