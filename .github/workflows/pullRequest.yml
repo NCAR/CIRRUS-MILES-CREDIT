@@ -40,7 +40,7 @@ jobs:
         #chmod 777 credit.sh
         #chmod 777 dateChange.sh
         #./dateChange.sh
-        ./.github/workflows/dateChange.sh /__w/CIRRUS-MILES-CREDIT/CIRRUS-MILES-CREDIT/.github/workflows/model_predict_CI.yml
+        ./.github/workflows/dateChange.sh /__w/CIRRUS-MILES-CREDIT/.github/workflows/model_predict_CI.yml
         #cat model_predict_old.yml
         #cat ./.github/workflows/model_predict_CI.yml
         ./.github/workflows/runModelPredict.sh
