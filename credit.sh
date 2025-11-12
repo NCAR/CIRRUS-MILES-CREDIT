@@ -1,8 +1,8 @@
 #! /bin/bash
 #nvidia-smi
 export PATH=/home/ubuntu/.local/bin:$PATH
-git -C /workspace/miles-credit stash
-git -C /workspace/miles-credit pull -q
+#git -C /workspace/miles-credit stash
+#git -C /workspace/miles-credit pull -q
 echo "miles-credit commit:"
 git -C /workspace/miles-credit log -1 --format=%H
 echo "gfs_init.py!"
