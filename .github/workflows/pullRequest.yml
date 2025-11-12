@@ -38,22 +38,18 @@ jobs:
         date
         git log -1
         chmod -R 777 ./.github/workflows/*
-        #chmod 777 credit.sh
-        #chmod 777 dateChange.sh
-        #./dateChange.sh
+        chmod 777 credit.sh
+        chmod 777 dateChange.sh
         ./.github/workflows/dateChange.sh /__w/CIRRUS-MILES-CREDIT/CIRRUS-MILES-CREDIT/.github/workflows/model_predict_CI.yml
-        #cat model_predict_old.yml
-        #cat ./.github/workflows/model_predict_CI.yml
         ./.github/workflows/runModelPredict.sh
-        #./credit.sh
         du -h /output
-    #- name: Upload the gfs_init.py netCDF output files to CIRRUS storage
-    #  run: |
-    #    wget https://github.com/peak/s5cmd/releases/download/v2.3.0/s5cmd_2.3.0_linux_amd64.deb
-    #    apt install ./s5cmd_2.3.0_linux_amd64.deb
-    #    s5cmd version
-    #    touch "$(date +%H-%M-%S).txt"
-    #    ls -lrth
-    #    s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
-    #    s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
-    #    s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
+    - name: Upload the gfs_init.py netCDF output files to CIRRUS storage
+      run: |
+        wget https://github.com/peak/s5cmd/releases/download/v2.3.0/s5cmd_2.3.0_linux_amd64.deb
+        apt install ./s5cmd_2.3.0_linux_amd64.deb
+        s5cmd version
+        touch "$(date +%H-%M-%S).txt"
+        ls -lrth
+        s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
+        s5cmd --no-verify-ssl --endpoint-url $AWS_ENDPOINT_URL cp --include '*.txt' . s3://model-predict-bucket
+        s5cmd --endpoint-url https://s3.k8s.ucar.edu:5443 ls s3://model-predict-bucket/
