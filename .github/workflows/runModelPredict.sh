@@ -5,6 +5,7 @@ export PATH=/home/ubuntu/.local/bin:$PATH
 #echo "miles-credit commit:"
 #git -C /workspace/miles-credit log -1
 echo "gfs_init.py!"
+git config --global --add safe.directory /workspace/miles-credit
 git -C /workspace/miles-credit log -1
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 #conda run -n credit python -u /__w/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
