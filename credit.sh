@@ -9,5 +9,6 @@ echo "gfs_init.py!"
 #conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c /workspace/CIRRUS-MILES-CREDIT/model_predict_old.yml
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c ./model_predict_old.yml
 echo "rollout_realtime.py!"
-conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./model_predict_old.yml
+#conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./model_predict_old.yml
+conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./.github/workflows/model_predict_CI.yml
 ls -lrth /output
