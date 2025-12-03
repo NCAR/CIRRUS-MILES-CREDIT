@@ -57,12 +57,12 @@ jobs:
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
-      #./dateChange.sh
+      ./dateChange.sh
       ./credit.sh
 
 cronjobs:
   credit:
-    enabled: false
+    enabled: true
     name: cirrustest-cron
     schedule: "0 0,6,12,18 * * *"
     timeZone: "America/Denver"
