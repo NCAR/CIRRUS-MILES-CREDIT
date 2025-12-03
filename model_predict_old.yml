@@ -132,9 +132,10 @@ predict:
                              # (e.g., duration: 384 for 365-day rollout using 32 GPUs)
         days: 10             # forecast lead time as days (1 means 24-hour forecast)
     realtime:
-        #forecast_start_time: "2025-12-02 23:00:00"
-        forecast_start_time: "2025-12-03 06:00:00"
-        forecast_end_time: "2025-12-03 12:00:00"
+        forecast_start_time: "2025-12-03 12:00:00"
+        forecast_end_time: "2025-12-03 14:00:00"
+        #forecast_start_time: "2025-12-03 06:00:00"
+        #forecast_end_time: "2025-12-03 12:00:00"
         #forecast_start_time: "2025-10-15 00:00:00"
         #forecast_end_time: "2025-10-15 02:00:00"
         forecast_timestep: "1h"
