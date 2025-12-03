@@ -34,15 +34,13 @@ epoch_end=$(TZ=$TZ date --date="$start_time" +%s)
 
 # Add 6 hours (in seconds)
 #epoch_end=$((epoch_start + 6*3600))
-epoch_start=$((epoch_start - 6*3600))
+epoch_start=$((epoch_end - 6*3600))
 
 echo "epock_start $epoch_start"
 echo "epock_end   $epoch_end"
 
 # Format both in Denver local time
-#start_time=$(TZ="America/Denver" date -d @"$epoch_start" +"%Y-%m-%d %H:%M:%S")
 start_time=$(TZ="$TZ" date -d @"$epoch_start" +"%Y-%m-%d %H:%M:%S")
-#end_time=$(TZ="America/Denver" date -d @"$epoch_end" +"%Y-%m-%d %H:%M:%S")
 end_time=$(TZ="$TZ" date -d @"$epoch_end" +"%Y-%m-%d %H:%M:%S")
 echo "start=$start_time end=$end_time"
 
