@@ -26,6 +26,7 @@ esac
 
 date_str=$(TZ="$TZ" date +%Y-%m-%d)
 start_time="${date_str} $(printf "%02d" $start_hour):00:00"
+echo "start time 1 $start_time"
 
 # Get epoch time for now in Denver
 epoch_start=$(date --date="$start_time" +%s)
