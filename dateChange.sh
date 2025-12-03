@@ -29,10 +29,12 @@ start_time="${date_str} $(printf "%02d" $start_hour):00:00"
 echo "start time 1 $start_time"
 
 # Get epoch time for now in Denver
-epoch_start=$(TZ=$TZ date --date="$start_time" +%s)
+#epoch_start=$(TZ=$TZ date --date="$start_time" +%s)
+epoch_end=$(TZ=$TZ date --date="$start_time" +%s)
 
 # Add 6 hours (in seconds)
-epoch_end=$((epoch_start + 6*3600))
+#epoch_end=$((epoch_start + 6*3600))
+epoch_start=$((epoch_start - 6*3600))
 
 echo "epock_start $epoch_start"
 echo "epock_end   $epoch_end"
