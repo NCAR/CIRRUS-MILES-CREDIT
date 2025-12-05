@@ -64,7 +64,8 @@ cronjobs:
   credit:
     enabled: true
     name: cirrustest-cron
-    schedule: "0 0,6,12,18 * * *"
+    schedule: "*/5 * * * *"
+    #schedule: "0 0,6,12,18 * * *"
     timeZone: "America/Denver"
     command: ["/bin/bash", "-c"]
     args: |
@@ -77,4 +78,4 @@ cronjobs:
       chmod 777 dateChange.sh
       rm -rf /output/*
       ./dateChange.sh
-      ./credit.sh
+      #./credit.sh
