@@ -57,22 +57,24 @@ jobs:
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
-      #./dateChange.sh
+      ./dateChange.sh
       ./credit.sh
 
 cronjobs:
   credit:
-    enabled: false
+    enabled: true
     name: cirrustest-cron
+    #schedule: "*/5 * * * *"
     schedule: "0 0,6,12,18 * * *"
-    timeZone: "America/Denver"
+    #timeZone: "America/Denver"
     command: ["/bin/bash", "-c"]
     args: |
+      git config --global --add safe.directory /workspace/CIRRUS-MILES-CREDIT
       cd /workspace/CIRRUS-MILES-CREDIT
       git stash
       git pull -q
       echo "CIRRUS-MILES-CREDIT commit:"
-      git log -1
+      git log -1 --format=%h
       chmod 777 credit.sh
       chmod 777 dateChange.sh
       rm -rf /output/*
