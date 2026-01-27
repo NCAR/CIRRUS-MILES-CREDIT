@@ -29,7 +29,8 @@ data:
     dynamic_forcing_variables: ['tsi']
     #save_loc_dynamic_forcing: '/glade/derecho/scratch/dgagne/credit_solar_nc_1h_0.25deg_20250418/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc'
     #save_loc_dynamic_forcing: '/glade/campaign/cisl/vast/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc'
-    save_loc_dynamic_forcing: '/glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc'
+    #save_loc_dynamic_forcing: '/glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc'
+    save_loc_dynamic_forcing: '/glade/campaign/cisl/vast/pearse/save_loc_dynamic_forcing/solar_irradiance_2026-01-01_0000_2026-12-31_2300.nc'
     #save_loc_dynamic_forcing: '/checkpoint/solar_irradiance_2025-01-01_0000_2025-12-31_2300.nc'
     
     # static variables
