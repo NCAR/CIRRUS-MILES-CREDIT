@@ -8,7 +8,8 @@ echo "gfs_init.py!"
 mkdir -p /output/model_predict
 ls -lrth /output
 # Remove all directories but the 4 most recently created outputs
-ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
+#ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
+ls -1dt /output/model_predict | tail -n +5 | xargs -r rm -rf
 rm -rf /output/gfs_init*.zarr
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c ./model_predict_old.yml
 echo "rollout_realtime.py!"
