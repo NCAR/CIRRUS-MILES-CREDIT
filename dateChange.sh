@@ -25,6 +25,8 @@ case $hour in
   *) end_hour=18 ;;
 esac
 
+date +%Z
+
 #date_str=$(TZ="$TZ" date +%Y-%m-%d)
 date_str=$(date -u +%Y-%m-%d)
 end_time="${date_str} $(printf "%02d" $end_hour):00:00"
