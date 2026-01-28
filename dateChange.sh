@@ -30,14 +30,10 @@ date_str=$(date +%Y-%m-%d)
 end_time="${date_str} $(printf "%02d" $end_hour):00:00"
 echo "end time 1 $end_time"
 
-# Get epoch time for now in Denver
-#epoch_start=$(TZ=$TZ date --date="$start_time" +%s)
-epoch_end=$(date --date="$end_time" +%s)
-#epoch_end=$(TZ=$TZ date --date="$start_time" +%s)
-
-# Add 6 hours (in seconds)
+# GFS forecasts are not immediately available, so push our window to
+# the previous 6 hour window instead of the one we are currently in
+epoch_end=$(date --date="$end_time" +%s) - 6*3600
 epoch_start=$((epoch_end - 6*3600))
-#epoch_start=$((epoch_end - 6*3600))
 
 echo "epoch_start $epoch_start"
 echo "epoch_end   $epoch_end"
