@@ -32,7 +32,7 @@ echo "end time 1 $end_time"
 
 # GFS forecasts are not immediately available, so push our window to
 # the previous 6 hour window instead of the one we are currently in
-epoch_end=$(date --date="$end_time" +%s) - 6*3600
+epoch_end=$(date --date="$end_time - 6 hours" +%s)
 epoch_start=$((epoch_end - 6*3600))
 
 echo "epoch_start $epoch_start"
