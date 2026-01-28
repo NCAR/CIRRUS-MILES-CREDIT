@@ -41,8 +41,8 @@ echo "epoch_end   $epoch_end"
 # Format both in Denver local time
 #start_time=$(TZ="$TZ" date -d @"$epoch_start" +"%Y-%m-%d %H:%M:%S")
 #end_time=$(TZ="$TZ" date -d @"$epoch_end" +"%Y-%m-%d %H:%M:%S")
-start_time=$(date -d @"$epoch_start" +"%Y-%m-%d %H:%M:%S")
-end_time=$(date -d @"$epoch_end" +"%Y-%m-%d %H:%M:%S")
+start_time=$(date -u -d @"$epoch_start" +"%Y-%m-%d %H:%M:%S")
+end_time=$(date -u -d @"$epoch_end" +"%Y-%m-%d %H:%M:%S")
 echo "start=$start_time end=$end_time"
 
 sed -i \
