@@ -28,7 +28,7 @@ esac
 #date_str=$(TZ="$TZ" date +%Y-%m-%d)
 date_str=$(date -u +%Y-%m-%d)
 end_time="${date_str} $(printf "%02d" $end_hour):00:00"
-echo "end time 1 $end_time"
+echo "end time 1: $end_time"
 
 # GFS forecasts are not immediately available, so push our window to
 # the previous 6 hour window instead of the one we are currently in
