@@ -11,6 +11,9 @@ ls -lrth /output
 #ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
 ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
 rm -rf /output/gfs_init*.zarr
+sed -i.bak '/ds = xr\.open_dataset(full_file_path, engine="h5netcdf")/i\
+    print("DEBUG full_file_path =", full_file_path)
+' /workspace/miles-credit/credit/nwp.py
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c ./model_predict_old.yml
 echo "rollout_realtime.py!"
 conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./model_predict_old.yml
