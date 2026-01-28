@@ -56,7 +56,9 @@ jobs:
       git log -1 --format=%h
       chmod 777 credit.sh
       chmod 777 dateChange.sh
-      rm -rf /output/*
+      # Remove all directories but the 4 most recently created outputs
+      ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
+      #rm -rf /output/*
       ./dateChange.sh
       ./credit.sh
 
@@ -77,6 +79,8 @@ cronjobs:
       git log -1 --format=%h
       chmod 777 credit.sh
       chmod 777 dateChange.sh
-      rm -rf /output/*
+      #rm -rf /output/*
+      # Remove all directories but the 4 most recently created outputs
+      ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
       ./dateChange.sh
       ./credit.sh
