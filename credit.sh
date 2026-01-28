@@ -4,6 +4,8 @@ export PATH=/home/ubuntu/.local/bin:$PATH
 echo "miles-credit commit:"
 git -C /workspace/miles-credit log -1 --format=%H
 echo "gfs_init.py!"
+# Create /output/model_predict in case it does not exist
+mkdir -p /output/model_predict
 # Remove all directories but the 4 most recently created outputs
 ls -1dt /output/model_predict/* | tail -n +5 | xargs -r rm -rf
 pm -rf /output/gfs_init*.zarr
