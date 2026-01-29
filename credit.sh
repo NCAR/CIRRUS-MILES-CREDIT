@@ -15,5 +15,6 @@ sed -i.bak '/ds = xr\.open_dataset(full_file_path, engine="h5netcdf")/i\
 ' /workspace/miles-credit/credit/nwp.py
 conda run -n credit python -u /workspace/miles-credit/applications/gfs_init.py -c ./model_predict_old.yml
 echo "rollout_realtime.py!"
-conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./model_predict_old.yml
+#conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./model_predict_old.yml
+conda run -n credit python -u /workspace/miles-credit/applications/rollout_realtime.py -c ./.github/workflows/model_predict_CI.yml
 ls -lrth /output
